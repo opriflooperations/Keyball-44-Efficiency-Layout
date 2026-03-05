@@ -65,7 +65,7 @@
             label = "CMK-DH+";
             bindings = <
 &lt 4 LC(F)    &kp Q             &kp W                 &kp F        &kp P        &kp B                                     &kp J        &kp L        &kp U        &kp Y        &mt K_REDO K_UNDO  &lt 3 PRINTSCREEN
-&lt 0 ESCAPE   &hm LGUI A        &hm LALT R            &hm LSHFT S  &hm LCTRL T  &mt CAPSLOCK G                            &mt LG(TAB) M &hm RCTRL N  &hm RSHFT E  &hm RALT I   &hm RGUI O         &lt 5 DEL
+&lt 0 ESCAPE   &hm LGUI A        &hm LALT R            &hm LSHFT S  &hm LCTRL T  &mt caps_word G                           &mt LG(TAB) M &hm RCTRL N  &hm RSHFT E  &hm RALT I   &hm RGUI O         &lt 5 DEL
 &kp LC(LS(D))  &kp Z             &kp X                 &kp C        &kp D        &mt LG(V) V                               &kp K        &kp H        &kp COMMA    &kp PERIOD   &kp SLASH          &kp TAB
 &kp LALT       &kp LEFT_CONTROL  &mt LEFT_SHIFT LC(C)  &lt 5 SPACE  &lt 6 LC(V)                             &lt 2 ENTER &lt 1 BACKSPACE                           &kp LEFT_WIN
             >;
