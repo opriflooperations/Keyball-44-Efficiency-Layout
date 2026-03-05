@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: keyball44}
 layers:
   CMK-DH+:
-  - {t: '$$mdi:keyboard-esc$$', h: CMK-DH+}
+  - {t: Ctl+F, h: MOUSE}
   - Q
   - {t: W, h: Ctl+W}
   - {t: F, h: Ctl+F}
@@ -12,19 +12,19 @@ layers:
   - {t: U, h: Ctl+U}
   - {t: Y, h: Ctl+Y}
   - $$mdi:keyboard-tab$$
-  - $$mdi:backspace-reverse-outline$$
-  - {t: F, h: MOUSE}
+  - {t: PRINTSCREEN, h: FUN}
+  - {t: '$$mdi:keyboard-esc$$', h: CMK-DH+}
   - {t: A, h: Ctl+A}
   - {t: R, h: Ctl+R}
   - {t: S, h: Ctl+S}
   - {t: T, h: Ctl+T}
-  - G
-  - M
+  - {t: G, h: 'Gui+$$mdi:keyboard-tab$$'}
+  - {t: M, h: 'Gui+$$mdi:keyboard-tab$$'}
   - {t: N, h: Ctl+N}
   - {t: E, h: Ctl+E}
   - {t: I, h: Ctl+I}
   - {t: O, h: Ctl+O}
-  - {t: '$$mdi:printer-outline$$', h: FUN}
+  - $$mdi:backspace-reverse-outline$$
   - $$mdi:keyboard-tab$$
   - {t: Z, h: Ctl+Z}
   - {t: X, h: Ctl+X}
@@ -36,14 +36,14 @@ layers:
   - {t: ',', s: <}
   - .
   - {t: /, s: '?'}
-  - $$mdi:apple-keyboard-caps$$
+  - {t: REDO, h: UNDO}
   - $$mdi:apple-keyboard-option$$
-  - {t: C, h: '$$mdi:apple-keyboard-shift$$'}
+  - $$mdi:apple-keyboard-control$$
+  - {t: Ctl+C, h: '$$mdi:apple-keyboard-shift$$'}
   - {t: '$$mdi:keyboard-space$$', h: NUM}
-  - {t: V, h: SCROLL}
+  - {t: Ctl+V, h: SCROLL}
   - {t: '$$mdi:keyboard-return$$', h: SNIPE}
   - {t: '$$mdi:backspace$$', h: SYM}
-  - RWIN
   NUM:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '1'
@@ -83,8 +83,8 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
-  - {type: held}
   - {t: '$$mdi:transfer$$', type: trans}
+  - {type: held}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
@@ -130,8 +130,8 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
-  - {type: held}
   - {t: '$$mdi:transfer$$', type: trans}
+  - {type: held}
   FUN:
   - $$mdi:brightness-5$$
   - F1
@@ -144,7 +144,7 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: '$$mdi:minus-circle-outline$$', type: held}
   - $$mdi:brightness-7$$
   - F5
   - F6
@@ -156,7 +156,7 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:minus-circle-outline$$', type: held}
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:volume-off$$
   - F9
   - F10
@@ -177,7 +177,7 @@ layers:
   - FUN
   - {t: '$$mdi:transfer$$', type: trans}
   MOUSE:
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: '$$mdi:minus-circle-outline$$', type: held}
   - {t: '1', s: '!'}
   - {t: '2', s: '@'}
   - {t: '3', s: '#'}
@@ -189,7 +189,7 @@ layers:
   - {t: '9', s: (}
   - {t: '0', s: )}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: SCROLL, h: '$$mdi:gesture-tap-hold$$', type: held}
+  - {t: SCROLL, h: '$$mdi:gesture-tap-hold$$'}
   - $$mdi:mouse-scroll-wheel$$
   - $$mdi:mouse-right-click-outline$$
   - {t: '$$mdi:keyboard-space$$', h: SCROLL}
@@ -221,7 +221,7 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   SCROLL:
-  - {t: '$$mdi:transfer$$', type: trans}
+  - {type: held alternate}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
@@ -242,6 +242,7 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {type: held alternate}
+  - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
@@ -261,7 +262,6 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {type: held}
-  - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   SNIPE:
@@ -305,6 +305,6 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
-  - {type: held}
   - {t: '$$mdi:transfer$$', type: trans}
+  - {type: held}
   - {t: '$$mdi:transfer$$', type: trans}
