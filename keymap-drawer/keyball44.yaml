@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: keyball44}
 layers:
   CMK-DH+:
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: 'Ctl+Sft+$$mdi:keyboard-tab$$', h: 'Ctl+Gui+$$mdi:arrow-left-bold$$'}
   - Q
   - W
   - F
@@ -12,7 +12,7 @@ layers:
   - U
   - Y
   - $$mdi:keyboard-tab$$
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: 'Ctl+$$mdi:keyboard-tab$$', h: 'Ctl+Gui+$$mdi:arrow-right-bold$$'}
   - {t: '$$mdi:keyboard-esc$$', h: CMK-DH+}
   - {t: A, h: LGUI}
   - {t: R, h: '$$mdi:apple-keyboard-option$$'}
