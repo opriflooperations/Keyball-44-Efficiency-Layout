@@ -62,10 +62,10 @@
         default_layer {
             label = "CMK-DH+";
             bindings = <
-&lt 0 ESC                 &kp Q        &hm LC(W) W  &hm LC(F) F  &hm LC(P) P  &kp B                                      &kp J             &hm LC(L) L  &hm LC(U) U  &hm LC(Y) Y  &kp TAB      &kp DEL
-&mt LEFT_SHIFT CAPSLOCK   &hm LC(A) A  &hm LC(R) R  &hm LC(S) S  &hm LC(T) T  &kp G                                      &kp M             &hm LC(N) N  &hm LC(E) E  &hm LC(I) I  &hm LC(O) O  &mt RIGHT_SHIFT CAPSLOCK
-&lt 4 LC(F)               &hm LC(Z) Z  &hm LC(X) X  &hm LC(C) C  &hm LC(D) D  &kp V                                      &kp K             &hm LC(H) H  &kp COMMA    &kp PERIOD   &kp SLASH    &lt 3 PRINTSCREEN
-&kp LEFT_ALT              &kp LCTRL    &lt 6 LC(C)  &lt 1 SPACE  &lt 5 LC(V)                    &mt LG(TAB) ENTER  &lt 2 BACKSPACE                                                           &kp LEFT_WIN
+&lt 0 ESC                 &kp Q        &hm LC(W) W  &hm LC(F) F  &hm LC(P) P  &kp B                                     &kp J               &hm LC(L) L  &hm LC(U) U  &hm LC(Y) Y  &kp TAB      &kp DEL
+&lt 4 F                   &hm LC(A) A  &hm LC(R) R  &hm LC(S) S  &hm LC(T) T  &kp G                                     &kp M               &hm LC(N) N  &hm LC(E) E  &hm LC(I) I  &hm LC(O) O  &lt 3 PSCRN
+&kp TAB                   &hm LC(Z) Z  &hm LC(X) X  &hm LC(C) C  &hm LC(D) D  &kp V                                     &kp K               &hm LC(H) H  &kp COMMA    &kp PERIOD   &kp SLASH    &kp CAPS
+&kp LALT                  &mt LSHIFT C &lt 1 SPACE  &lt 5 V                                           &lt 6 ENTER  &lt 2 BACKSPACE                                                     &kp RWIN
             >;
         };
 
@@ -75,7 +75,7 @@
 &none   &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp NUMBER_5                &kp NUMBER_6  &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp NUMBER_0  &none
 &none   &kp LEFT      &kp DOWN      &kp UP_ARROW  &kp RIGHT     &none                       &none         &none         &none         &none         &none         &none
 &none   &none         &none         &none         &none         &none                       &none         &none         &trans        &trans        &none         &none
-&trans  &trans        &trans        &trans        &trans                    &trans  &trans                                                                    &trans
+&trans  &trans        &trans        &trans                                    &trans  &trans                                                              &trans
             >;
         };
 
@@ -85,7 +85,7 @@
 &none   &kp EXCLAMATION  &kp AT_SIGN   &kp HASH      &kp DOLLAR    &kp PERCENT                 &kp CARET       &kp AMPERSAND  &kp ASTERISK      &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &none
 &none   &bt BT_CLR       &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans                      &kp MINUS       &kp EQUAL      &kp LEFT_BRACKET  &kp RIGHT_BRACKET      &kp SQT                &none
 &none   &trans           &trans        &trans        &trans        &trans                      &kp UNDERSCORE  &kp PLUS       &kp LESS_THAN     &kp GREATER_THAN      &kp NON_US_BACKSLASH   &none
-&trans  &trans           &trans        &trans        &trans                    &trans  &trans                                                                                           &trans
+&trans  &trans           &trans        &trans                                    &trans  &trans                                                                                       &trans
             >;
         };
 
@@ -95,7 +95,7 @@
 &kp C_BRIGHTNESS_INC  &kp F1  &kp F2   &kp F3   &kp F4   &none                &none  &none  &none  &none  &none  &none
 &kp C_BRIGHTNESS_DEC  &kp F5  &kp F6   &kp F7   &kp F8   &none                &none  &none  &none  &none  &none  &none
 &kp C_MUTE            &kp F9  &kp F10  &kp F11  &kp F12  &none                &none  &none  &none  &none  &none  &none
-&trans                &trans  &trans   &trans   &trans                &trans  &mo 3                               &trans
+&trans                &trans  &trans   &trans                    &trans  &mo 3                               &trans
             >;
         };
 
@@ -105,7 +105,7 @@
 &none   &kp N1          &kp N2     &kp N3       &kp N4     &kp N5                      &kp N6         &kp N7     &kp N8        &kp N9     &kp N0     &none
 &sl 5   &mkp MCLK       &mkp RCLK  &lt 5 SPACE  &mkp LCLK  &kp PAGE_UP                 &kp PAGE_UP    &mkp LCLK  &lt 5 SPACE   &mkp RCLK  &mkp MCLK  &kp PRINTSCREEN
 &none   &kp LEFT_ARROW  &kp DOWN   &kp UP_ARROW  &kp RIGHT  &kp PAGE_DOWN               &kp PAGE_DOWN  &kp LEFT   &kp UP_ARROW  &kp DOWN   &kp RIGHT  &none
-&trans  &trans          &trans     &trans       &trans                 &trans  &trans                                                          &none
+&trans  &trans          &trans     &trans                                   &trans  &trans                                                       &none
             >;
         };
 
@@ -115,7 +115,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                &trans  &trans                                  &trans
+&trans  &trans  &trans  &trans                    &trans  &trans                                      &trans
             >;
         };
 
@@ -125,7 +125,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                &trans  &trans                                  &trans
+&trans  &trans  &trans  &trans                    &trans  &trans                                      &trans
             >;
         };
     };
