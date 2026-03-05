@@ -2,12 +2,12 @@ layout: {zmk_keyboard: keyball44}
 layers:
   CMK-DH+:
   - {t: Ctl+F, h: MOUSE}
-  - Q
+  - {t: Q, h: CLCK}
   - {t: W, h: Ctl+W}
   - {t: F, h: Ctl+F}
   - {t: P, h: Ctl+P}
-  - B
-  - J
+  - {t: B, h: Ctl+B}
+  - {t: J, h: Ctl+J}
   - {t: L, h: Ctl+L}
   - {t: U, h: Ctl+U}
   - {t: Y, h: Ctl+Y}
@@ -18,7 +18,7 @@ layers:
   - {t: R, h: Ctl+R}
   - {t: S, h: Ctl+S}
   - {t: T, h: Ctl+T}
-  - {t: G, h: '$$mdi:apple-keyboard-caps$$'}
+  - {t: G, h: Ctl+G}
   - {t: M, h: 'Gui+$$mdi:keyboard-tab$$'}
   - {t: N, h: Ctl+N}
   - {t: E, h: Ctl+E}
@@ -31,7 +31,7 @@ layers:
   - {t: C, h: Ctl+C}
   - {t: D, h: Ctl+D}
   - {t: V, h: V}
-  - K
+  - {t: K, h: Ctl+K}
   - {t: H, h: Ctl+H}
   - {t: ',', s: <}
   - .
@@ -192,20 +192,20 @@ layers:
   - {t: '8', s: '*'}
   - {t: '9', s: (}
   - {t: '0', s: )}
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: SCROLL, h: '$$mdi:gesture-tap-hold$$'}
-  - $$mdi:mouse-scroll-wheel$$
-  - $$mdi:mouse-right-click-outline$$
-  - {t: '$$mdi:keyboard-space$$', h: SCROLL}
-  - $$mdi:mouse-left-click-outline$$
-  - PgUp
-  - PgUp
-  - $$mdi:mouse-left-click-outline$$
-  - {t: '$$mdi:keyboard-space$$', h: SCROLL}
-  - $$mdi:mouse-right-click-outline$$
-  - $$mdi:mouse-scroll-wheel$$
   - PRINTSCREEN
   - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - $$mdi:mouse-scroll-wheel$$
+  - $$mdi:mouse-right-click-outline$$
+  - {t: '$$mdi:keyboard-space$$', h: SCROLL}
+  - $$mdi:mouse-left-click-outline$$
+  - PgUp
+  - PgUp
+  - $$mdi:mouse-left-click-outline$$
+  - {t: '$$mdi:keyboard-space$$', h: SCROLL}
+  - $$mdi:mouse-right-click-outline$$
+  - $$mdi:mouse-scroll-wheel$$
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:arrow-left-bold$$
   - $$mdi:arrow-down-bold$$
   - $$mdi:arrow-up-bold$$
@@ -224,7 +224,7 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - POWER
   SCROLL:
   - {type: held alternate}
   - {t: '$$mdi:transfer$$', type: trans}
@@ -238,7 +238,7 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
-  - {type: held alternate}
+  - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {type: held alternate}
