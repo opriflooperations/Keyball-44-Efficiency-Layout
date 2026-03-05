@@ -65,7 +65,7 @@
 &lt 4 LC(F)   &kp Q             &hm LC(W) W           &hm LC(F) F  &hm LC(P) P  &kp B                           &kp J            &hm LC(L) L  &hm LC(U) U  &hm LC(Y) Y  &kp TAB      &lt 3 PRINTSCREEN
 &lt 0 ESCAPE  &hm LC(A) A       &hm LC(R) R           &hm LC(S) S  &hm LC(T) T  &mt LG(TAB) G                   &mt LG(TAB) M    &hm LC(N) N  &hm LC(E) E  &hm LC(I) I  &hm LC(O) O  &kp DELETE
 &kp TAB       &hm LC(Z) Z       &hm LC(X) X           &hm LC(C) C  &hm LC(D) D  &kp V                           &kp K            &hm LC(H) H  &kp COMMA    &kp PERIOD   &kp SLASH    &mt K_UNDO K_REDO
-&kp LALT      &kp LEFT_CONTROL  &mt LEFT_SHIFT LC(C)  &lt 1 SPACE  &lt 5 LC(V)                  &lt 6 ENTER     &lt 2 BACKSPACE  &kp RWIN     &none
+&kp LALT      &kp LEFT_CONTROL  &mt LEFT_SHIFT LC(C)  &lt 1 SPACE  &lt 5 LC(V)                  &lt 6 ENTER     &kp RGUI         &lt 2 BACKSPACE  &none
             >;
         };
 
