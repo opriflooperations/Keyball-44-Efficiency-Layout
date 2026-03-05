@@ -11,32 +11,32 @@ layers:
   - {t: L, h: Ctl+L}
   - {t: U, h: Ctl+U}
   - {t: Y, h: Ctl+Y}
-  - $$mdi:keyboard-tab$$
+  - {t: UNDO, h: REDO}
   - {t: PRINTSCREEN, h: FUN}
   - {t: '$$mdi:keyboard-esc$$', h: CMK-DH+}
   - {t: A, h: Ctl+A}
   - {t: R, h: Ctl+R}
   - {t: S, h: Ctl+S}
   - {t: T, h: Ctl+T}
-  - {t: G, h: 'Gui+$$mdi:keyboard-tab$$'}
+  - {t: G, h: '$$mdi:apple-keyboard-caps$$'}
   - {t: M, h: 'Gui+$$mdi:keyboard-tab$$'}
   - {t: N, h: Ctl+N}
   - {t: E, h: Ctl+E}
   - {t: I, h: Ctl+I}
   - {t: O, h: Ctl+O}
   - $$mdi:backspace-reverse-outline$$
-  - $$mdi:keyboard-tab$$
+  - LEFT WIN
   - {t: Z, h: Ctl+Z}
   - {t: X, h: Ctl+X}
   - {t: C, h: Ctl+C}
   - {t: D, h: Ctl+D}
-  - V
+  - {t: V, h: V}
   - K
   - {t: H, h: Ctl+H}
   - {t: ',', s: <}
   - .
   - {t: /, s: '?'}
-  - {t: REDO, h: UNDO}
+  - $$mdi:keyboard-tab$$
   - $$mdi:apple-keyboard-option$$
   - $$mdi:apple-keyboard-control$$
   - {t: Ctl+C, h: '$$mdi:apple-keyboard-shift$$'}
@@ -44,7 +44,7 @@ layers:
   - {t: Ctl+V, h: SCROLL}
   - {t: '$$mdi:keyboard-return$$', h: SNIPE}
   - {t: '$$mdi:backspace$$', h: SYM}
-  - RWIN
+  - Ctl+Sft+D
   NUM:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '1'
