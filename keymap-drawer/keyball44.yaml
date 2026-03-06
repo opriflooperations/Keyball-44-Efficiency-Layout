@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: keyball44}
 layers:
   CMK-DH+:
-  - {t: 'Ctl+Sft+$$mdi:keyboard-tab$$', h: 'Ctl+Gui+$$mdi:arrow-left-bold$$'}
+  - {t: 'Ctl+Gui+$$mdi:arrow-left-bold$$', h: 'Ctl+Sft+$$mdi:keyboard-tab$$'}
   - Q
   - W
   - F
@@ -12,13 +12,13 @@ layers:
   - U
   - Y
   - $$mdi:keyboard-tab$$
-  - {t: 'Ctl+$$mdi:keyboard-tab$$', h: 'Ctl+Gui+$$mdi:arrow-right-bold$$'}
+  - {t: 'Ctl+Gui+$$mdi:arrow-right-bold$$', h: 'Ctl+$$mdi:keyboard-tab$$'}
   - {t: '$$mdi:keyboard-esc$$', h: CMK-DH+}
   - {t: A, h: LGUI}
   - {t: R, h: '$$mdi:apple-keyboard-option$$'}
   - {t: S, h: '$$mdi:apple-keyboard-shift$$'}
   - {t: T, h: '$$mdi:apple-keyboard-control$$'}
-  - {t: G, h: '$$mdi:alpha-w-box$$'}
+  - '&hw 0 G'
   - M
   - {t: N, h: '$$mdi:apple-keyboard-control$$'}
   - {t: E, h: '$$mdi:apple-keyboard-shift$$'}
