@@ -39,8 +39,17 @@
     };
 
     behaviors {
-        // Custom spacebar behavior: longer hold time + safety features
+        // Tap: Lock Scroll Layer | Hold: Ctrl+X
+        ll_cut: lock_layer_cut {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LL_CUT";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "hold-preferred";
+            bindings = <&kp>, <&lock_layer>;
+        };
 
+        // Custom spacebar behavior: longer hold time + safety features
         lt_spc: layer_tap_space {
             compatible = "zmk,behavior-hold-tap";
             label = "LAYER_TAP_SPACE";
@@ -79,6 +88,16 @@
             flavor = "hold-preferred";
             bindings = <&kp>, <&kp>;
         };
+
+        hw: hold_word {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOLD_WORD";
+            #binding-cells = <2>;
+            tapping-term-ms = <250>;
+            quick-tap-ms = <0>;
+            flavor = "hold-preferred";
+            bindings = <&caps_word>, <&kp>;
+        };
     };
 
     keymap {
@@ -87,70 +106,70 @@
         default_layer {
             label = "CMK-DH+";
             bindings = <
-&mt LC(LS(TAB)) LC(LG(LEFT))  &kp Q            &kp W            &kp F        &kp P        &kp B                         &kp J            &kp L        &kp U        &kp Y       &kp TAB     &mt LC(TAB) LC(LG(RIGHT))
-&lt 0 ESCAPE                  &hm LGUI A       &hm LALT R       &hm LSHFT S  &hm LCTRL T  &kp G                         &kp M            &hm RCTRL N  &hm RSHFT E  &hm RALT I  &hm RGUI O  &lt 5 DEL
-&lt 3 PRINTSCREEN             &kp Z            &kp X            &kp C        &kp D        &mt LG(V) V                   &kp K            &kp H        &kp COMMA    &kp DOT     &kp SLASH   &lt 4 LC(F)
-&kp LC(LS(D))                 &mt LC(Y) LC(Z)  &mt LC(X) LC(C)  &lt 5 SPACE  &lt 6 LC(V)                   &lt 2 ENTER  &lt 1 BACKSPACE                                                    &lt 5 LC(LS(D))
+&mt LC(LG(LEFT_ARROW)) LC(LS(TAB))  &kp Q              &kp W            &kp F          &kp P          &kp B                          &kp J            &kp L        &kp U        &kp Y       &kp TAB     &mt LC(LG(RIGHT)) LC(TAB)
+&lt 0 ESCAPE                        &hm LGUI A         &hm LALT R       &hm LSHFT S    &hm LCTRL T    &hw 0 G                        &kp M            &hm RCTRL N  &hm RSHFT E  &hm RALT I  &hm RGUI O  &lt 5 DEL
+&lt 3 PRINTSCREEN                   &kp Z              &kp X            &kp C          &kp D          &mt LG(V) V                    &kp K            &kp H        &kp COMMA    &kp DOT     &kp SLASH   &lt 4 LC(F)
+&kp LC(LS(D))                       &mt LC(Y) LC(Z)    &ll_cut LC(X) SCROLL  &lt_spc 5 SPACE &lt 6 LC(V)                    &lt 2 ENTER  &lt 1 BACKSPACE                                        &lt 5 LC(LS(D))
             >;
         };
 
         number_layer {
             label = "NUM";
             bindings = <
-&none   &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp NUMBER_5              &kp NUMBER_6  &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp NUMBER_0  &none
-&none   &kp LEFT      &kp DOWN      &kp UP_ARROW  &kp RIGHT     &none                     &none         &none         &none         &none         &none         &none
-&none   &none         &none         &none         &none         &none                     &none         &none         &trans        &trans        &none         &none
-&trans  &trans        &trans        &trans        &trans                          &trans  &trans                                                                &trans
+&none   &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp NUMBER_5                &kp NUMBER_6  &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp NUMBER_0  &none
+&none   &kp LEFT      &kp DOWN      &kp UP_ARROW  &kp RIGHT     &none                       &none         &none         &none         &none         &none         &none
+&none   &none         &none         &none         &none         &none                       &none         &none         &trans        &trans        &none         &none
+&trans  &trans        &trans        &trans        &trans                                    &trans        &trans                                                   &trans
             >;
         };
 
         symbol_layer {
             label = "SYM";
             bindings = <
-&none   &kp EXCLAMATION  &kp AT_SIGN   &kp HASH      &kp DOLLAR    &kp PERCENT              &kp CARET       &kp AMPERSAND  &kp ASTERISK      &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &none
-&none   &bt BT_CLR       &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans                   &kp MINUS       &kp EQUAL      &kp LEFT_BRACKET  &kp RIGHT_BRACKET     &kp SQT                &none
-&none   &trans           &trans        &trans        &trans        &trans                   &kp UNDERSCORE  &kp PLUS       &kp LESS_THAN     &kp GREATER_THAN      &kp NON_US_BACKSLASH   &none
-&trans  &trans           &trans        &trans        &trans                         &trans  &trans                                                                                        &trans
+&none   &kp EXCLAMATION  &kp AT_SIGN   &kp HASH      &kp DOLLAR    &kp PERCENT                 &kp CARET       &kp AMPERSAND  &kp ASTERISK      &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &none
+&none   &bt BT_CLR       &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans                      &kp MINUS       &kp EQUAL      &kp LEFT_BRACKET  &kp RIGHT_BRACKET      &kp SQT                &none
+&none   &trans           &trans        &trans        &trans        &trans                      &kp UNDERSCORE  &kp PLUS       &kp LESS_THAN     &kp GREATER_THAN      &kp NON_US_BACKSLASH   &none
+&trans  &trans           &trans        &trans        &trans                                    &trans          &trans                                                   &trans
             >;
         };
 
         function_layer {
             label = "FUN";
             bindings = <
-&kp C_BRIGHTNESS_INC  &kp F1  &kp F2   &kp F3   &kp F4   &none             &none   &none  &none  &none  &none  &none
-&kp C_BRIGHTNESS_DEC  &kp F5  &kp F6   &kp F7   &kp F8   &none             &none   &none  &none  &none  &none  &none
-&kp C_MUTE            &kp F9  &kp F10  &kp F11  &kp F12  &none             &none   &none  &none  &none  &none  &none
-&trans                &trans  &trans   &trans   &trans              &mo 3  &trans                              &trans
+&kp C_BRIGHTNESS_INC  &kp F1  &kp F2   &kp F3   &kp F4   &none                &none   &none  &none  &none  &none  &none
+&kp C_BRIGHTNESS_DEC  &kp F5  &kp F6   &kp F7   &kp F8   &none                &none   &none  &none  &none  &none  &none
+&kp C_MUTE            &kp F9  &kp F10  &kp F11  &kp F12  &none                &none   &none  &none  &none  &none  &none
+&trans                &trans  &trans   &trans   &trans                &mo 3   &trans                                 &trans
             >;
         };
 
         mouse_layer {
             label = "MOUSE";
             bindings = <
-&trans  &kp N1          &kp N2     &kp N3        &kp N4     &kp N5                     &kp N6         &kp N7     &kp N8        &kp N9     &kp N0     &trans
-&trans  &mkp MCLK       &mkp RCLK  &lt 5 SPACE   &mkp LCLK  &kp PAGE_UP                &kp PAGE_UP    &mkp LCLK  &lt 5 SPACE   &mkp RCLK  &mkp MCLK  &trans
-&trans  &kp LEFT_ARROW  &kp DOWN   &kp UP_ARROW  &kp RIGHT  &kp PAGE_DOWN              &kp PAGE_DOWN  &kp LEFT   &kp UP_ARROW  &kp DOWN   &kp RIGHT  &trans
-&trans  &trans          &trans     &trans        &trans                        &trans  &trans                                                        &trans
+&none   &kp N1          &kp N2     &kp N3        &kp N4     &kp N5                      &kp N6         &kp N7     &kp N8        &kp N9     &kp N0     &none
+&none   &mkp MCLK       &mkp RCLK  &lt 5 SPACE   &mkp LCLK  &kp PAGE_UP                 &kp PAGE_UP    &mkp LCLK  &lt 5 SPACE   &mkp RCLK  &mkp MCLK  &none
+&none   &kp LEFT_ARROW  &kp DOWN   &kp UP_ARROW  &kp RIGHT  &kp PAGE_DOWN               &kp PAGE_DOWN  &kp LEFT   &kp UP_ARROW  &kp DOWN   &kp RIGHT  &none
+&trans  &trans          &trans     &trans        &trans                                 &trans         &none                                     &kp K_POWER
             >;
         };
 
         scroll_layer {
             label = "SCROLL";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans              &trans  &trans                                  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                &trans  &trans                                 &trans
             >;
         };
 
         snipe_layer {
             label = "SNIPE";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans              &trans  &trans                                  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                &trans  &trans                                 &trans
             >;
         };
     };
