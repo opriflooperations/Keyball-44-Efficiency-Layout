@@ -39,14 +39,14 @@
     };
 
     behaviors {
-        // Tap: Lock Scroll Layer | Hold: Ctrl+X
-        ll_cut: lock_layer_cut {
+        // Tap: Ctrl+C | Hold: Layer Lock
+        ll_copy: lock_layer_copy {
             compatible = "zmk,behavior-hold-tap";
-            label = "LL_CUT";
+            label = "LL_COPY";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             flavor = "hold-preferred";
-            bindings = <&kp>, <&lock_layer>;
+            bindings = <&lock_layer>, <&kp>;
         };
 
         // Custom spacebar behavior: longer hold time + safety features
@@ -54,10 +54,10 @@
             compatible = "zmk,behavior-hold-tap";
             label = "LAYER_TAP_SPACE";
             #binding-cells = <2>;
-            tapping-term-ms = <200>; // Increased specifically for the spacebar
-            quick-tap-ms = <150>;    // Allows double-tapping for repeated spaces
+            tapping-term-ms = <200>; 
+            quick-tap-ms = <150>;    
             flavor = "balanced";
-            retro-tap;               // Sends space if you hold it but don't press another key
+            retro-tap;               
             bindings = <&mo>, <&kp>;
         };
 
@@ -66,7 +66,6 @@
             label = "COMMA_QUESTION";
             #binding-cells = <0>;
             bindings = <&kp COMMA>, <&kp QUESTION>;
-
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
@@ -75,7 +74,6 @@
             label = "DOT_SEMI";
             #binding-cells = <0>;
             bindings = <&kp DOT>, <&kp SEMI>;
-
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
@@ -109,7 +107,7 @@
 &mt LC(LG(LEFT_ARROW)) LC(LS(TAB))  &kp Q              &kp W            &kp F          &kp P          &kp B                          &kp J            &kp L        &kp U        &kp Y       &kp TAB     &mt LC(LG(RIGHT)) LC(TAB)
 &lt 0 ESCAPE                        &hm LGUI A         &hm LALT R       &hm LSHFT S    &hm LCTRL T    &hw 0 G                        &kp M            &hm RCTRL N  &hm RSHFT E  &hm RALT I  &hm RGUI O  &lt 5 DEL
 &lt 3 PRINTSCREEN                   &kp Z              &kp X            &kp C          &kp D          &mt LG(V) V                    &kp K            &kp H        &kp COMMA    &kp DOT     &kp SLASH   &lt 4 LC(F)
-&kp LC(LS(D))                       &mt LC(Y) LC(Z)    &ll_cut LC(X) SCROLL  &lt_spc 5 SPACE &lt 6 LC(V)                    &lt 2 ENTER  &lt 1 BACKSPACE                                        &lt 5 LC(LS(D))
+&kp LC(LS(D))                       &mt LC(Y) LC(Z)    &ll_copy 0 LC(C)  &lt_spc 5 SPACE &lt 6 LC(V)                    &lt 2 ENTER  &lt 1 BACKSPACE                                        &lt 5 LC(LS(D))
             >;
         };
 
