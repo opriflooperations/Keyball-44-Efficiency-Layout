@@ -39,21 +39,15 @@
     };
 
     behaviors {
-        // Internal behavior to allow lock_layer to work inside a hold-tap
-        ll: layer_lock_tap {
-            compatible = "zmk,behavior-active-layer-tap";
-            #binding-cells = <0>;
-            bindings = <&lock_layer 0>; // 0 is a placeholder, it locks the active layer
-        };
-
-        // Tap: Ctrl+C | Hold: Layer Lock (Topmost layer)
+        // Hold: Lock Layer | Tap: Keycode
+        // This takes 2 parameters: [Layer to lock] [Key to tap]
         ll_copy: lock_layer_copy {
             compatible = "zmk,behavior-hold-tap";
             label = "LL_COPY";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             flavor = "hold-preferred";
-            bindings = <&ll>, <&kp>;
+            bindings = <&lock_layer>, <&kp>;
         };
 
         // Custom spacebar behavior: longer hold time + safety features
