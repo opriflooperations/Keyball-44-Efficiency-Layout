@@ -84,10 +84,10 @@
         default_layer {
             label = "CMK-DH+";
             bindings = <
-&mt LC(LG(LEFT_ARROW)) LC(LS(TAB))  &kp Q              &kp W            &kp F        &kp P        &kp B                         &kp J            &kp L        &kp U        &kp Y       &kp TAB     &mt LC(LG(RIGHT)) LC(TAB)
-&lt 0 ESCAPE                        &hm LGUI A         &hm LALT R       &hm LSHFT S  &hm LCTRL T  &hw 0 G                       &kp M            &hm RCTRL N  &hm RSHFT E  &hm RALT I  &hm RGUI O  &lt 5 DEL
-&lt 3 PRINTSCREEN                   &kp Z              &kp X            &kp C        &kp D        &mt LG(V) V                   &kp K            &kp H        &kp COMMA    &kp DOT     &kp SLASH   &lt 4 LC(F)
-&none                               &mt K_REDO K_UNDO  &mt LC(X) LC(C)  &lt 5 SPACE  &lt 6 LC(V)                   &lt 2 ENTER  &lt 1 BACKSPACE                                                    &kp LC(LS(D))
+&mt LC(LG(LEFT_ARROW)) LC(LS(TAB))  &kp Q            &kp W            &kp F        &kp P        &kp B                         &kp J            &kp L        &kp U        &kp Y       &kp TAB     &mt LC(LG(RIGHT)) LC(TAB)
+&lt 0 ESCAPE                        &hm LGUI A       &hm LALT R       &hm LSHFT S  &hm LCTRL T  &hw 0 G                       &kp M            &hm RCTRL N  &hm RSHFT E  &hm RALT I  &hm RGUI O  &lt 5 DEL
+&lt 3 PRINTSCREEN                   &kp Z            &kp X            &kp C        &kp D        &mt LG(V) V                   &kp K            &kp H        &kp COMMA    &kp DOT     &kp SLASH   &lt 4 LC(F)
+&none                               &mt LC(Y) LC(Z)  &mt LC(X) LC(C)  &lt 5 SPACE  &lt 6 LC(V)                   &lt 2 ENTER  &lt 1 BACKSPACE                                                    &kp LC(LS(D))
             >;
         };
 
