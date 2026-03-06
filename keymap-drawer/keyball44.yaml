@@ -38,7 +38,7 @@ layers:
   - {t: /, s: '?'}
   - {t: Ctl+F, h: MOUSE}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: UNDO, h: REDO}
+  - {t: Ctl+Z, h: Ctl+Y}
   - {t: Ctl+C, h: Ctl+X}
   - {t: '$$mdi:keyboard-space$$', h: SCROLL}
   - {t: Ctl+V, h: SNIPE}
