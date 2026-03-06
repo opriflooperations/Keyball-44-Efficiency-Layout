@@ -39,7 +39,7 @@ layers:
   - {t: Ctl+F, h: MOUSE}
   - Ctl+Sft+D
   - {t: Ctl+Z, h: Ctl+Y}
-  - {t: Ctl+C, h: '&lock_layer'}
+  - {t: Ctl+C, h: '&ll'}
   - {t: '$$mdi:keyboard-space$$', h: SCROLL}
   - {t: Ctl+V, h: SNIPE}
   - {t: '$$mdi:keyboard-return$$', h: SYM}
