@@ -37,14 +37,14 @@ layers:
   - {t: ., s: '>'}
   - {t: /, s: '?'}
   - {t: Ctl+F, h: MOUSE}
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - Ctl+Sft+D
   - {t: Ctl+Z, h: Ctl+Y}
   - {t: Ctl+C, h: Ctl+X}
   - {t: '$$mdi:keyboard-space$$', h: SCROLL}
   - {t: Ctl+V, h: SNIPE}
   - {t: '$$mdi:keyboard-return$$', h: SYM}
   - {t: '$$mdi:backspace$$', h: NUM}
-  - Ctl+Sft+D
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
   NUM:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '1'
