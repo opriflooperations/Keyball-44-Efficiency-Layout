@@ -37,7 +37,7 @@ layers:
   - {t: ., s: '>'}
   - {t: /, s: '?'}
   - {t: Ctl+F, h: MOUSE}
-  - Ctl+Sft+D
+  - {t: Sft+Ctl+D, h: Ctl+Sft+S}
   - {t: Ctl+Z, h: Ctl+Y}
   - {t: Ctl+C, h: Ctl+X}
   - {t: '$$mdi:keyboard-space$$', h: SCROLL}
