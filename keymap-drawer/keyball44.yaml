@@ -13,7 +13,7 @@ layers:
   - Y
   - $$mdi:keyboard-tab$$
   - {t: 'Ctl+Gui+$$mdi:arrow-right-bold$$', h: 'Ctl+$$mdi:keyboard-tab$$'}
-  - {t: '$$mdi:keyboard-esc$$', h: CMK-DH+}
+  - {t: '$$mdi:keyboard-esc$$', h: SNIPE}
   - {t: A, h: LGUI}
   - {t: R, h: '$$mdi:apple-keyboard-option$$'}
   - {t: S, h: '$$mdi:apple-keyboard-shift$$'}
@@ -283,7 +283,7 @@ layers:
   - {t: '9', s: (}
   - {t: '0', s: )}
   - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - {type: held}
   - $$mdi:mouse-scroll-wheel$$
   - $$mdi:mouse-right-click-outline$$
   - {t: '$$mdi:keyboard-space$$', h: SCROLL}
