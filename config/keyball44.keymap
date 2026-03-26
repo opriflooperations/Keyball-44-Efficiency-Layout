@@ -33,34 +33,32 @@
 
         combo_task_view {
             timeout-ms = <50>;
-            key-positions = <20 21>; // E and I keys in Colemak-DH
+            key-positions = <21 22>; // E and I keys in Colemak-DH
             bindings = <&kp LG(TAB)>;
         };
 
         combo_back {
             timeout-ms = <50>;
-            key-positions = <21 22>; // N and E keys
+            key-positions = <22 23>; // N and E keys
             bindings = <&kp LA(LEFT)>;
         };
 
         combo_forward {
-            timeout-ms = <50>;
-            key-positions = <21 22 23>; // N, E, and I keys
+            timeout-ms = <60>; // Slightly longer for the 3-key chord
+            key-positions = <22 23 24>; // N, E, and I keys
             bindings = <&kp LA(RIGHT)>;
         };
     };
 
     behaviors {
-        // Custom spacebar behavior: longer hold time + safety features
-
         lt_spc: layer_tap_space {
             compatible = "zmk,behavior-hold-tap";
             label = "LAYER_TAP_SPACE";
             #binding-cells = <2>;
-            tapping-term-ms = <200>; // Increased specifically for the spacebar
-            quick-tap-ms = <150>;    // Allows double-tapping for repeated spaces
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
             flavor = "balanced";
-            retro-tap;               // Sends space if you hold it but don't press another key
+            retro-tap;
             bindings = <&mo>, <&kp>;
         };
 
@@ -69,7 +67,6 @@
             label = "COMMA_QUESTION";
             #binding-cells = <0>;
             bindings = <&kp COMMA>, <&kp QUESTION>;
-
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
@@ -78,7 +75,6 @@
             label = "DOT_SEMI";
             #binding-cells = <0>;
             bindings = <&kp DOT>, <&kp SEMI>;
-
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
@@ -88,9 +84,6 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             quick-tap-ms = <175>;
-
-            // This is the magic filter
-
             require-prior-idle-ms = <125>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
