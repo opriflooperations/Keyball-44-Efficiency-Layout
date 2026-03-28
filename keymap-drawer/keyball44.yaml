@@ -378,7 +378,7 @@ combos:
   k: {t: '$$mdi:keyboard-return$$', type: enter}
 - p: [21, 20]
   k: Gui+$$mdi:keyboard-tab$$
-- p: [10, 22]
+- p: [22, 21, 20]
   k: {t: CMK-DH+, h: toggle}
-- p: [1, 13]
+- p: [13, 14, 15]
   k: {t: CMK-DH+, h: toggle}
