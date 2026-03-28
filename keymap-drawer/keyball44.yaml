@@ -14,16 +14,16 @@ layers:
   - $$mdi:keyboard-tab$$
   - {t: 'Ctl+Gui+$$mdi:arrow-right-bold$$', h: 'Ctl+$$mdi:keyboard-tab$$'}
   - {t: '$$mdi:keyboard-esc$$', h: SNIPE}
-  - {t: A, h: LGUI}
-  - {t: R, h: '$$mdi:apple-keyboard-option$$'}
-  - {t: S, h: '$$mdi:apple-keyboard-shift$$'}
-  - {t: T, h: '$$mdi:apple-keyboard-control$$'}
+  - A
+  - R
+  - S
+  - T
   - G
   - M
-  - {t: N, h: '$$mdi:apple-keyboard-control$$'}
-  - {t: E, h: '$$mdi:apple-keyboard-shift$$'}
-  - {t: I, h: '$$mdi:apple-keyboard-option$$'}
-  - {t: O, h: RGUI}
+  - N
+  - E
+  - I
+  - O
   - {t: '$$mdi:keyboard-return$$', h: SCROLL}
   - {t: PRINTSCREEN, h: FUN}
   - Z
@@ -358,5 +358,19 @@ combos:
   k: Ctl+$$mdi:keyboard-tab$$
 - p: [7, 8]
   k: Ctl+Sft+$$mdi:keyboard-tab$$
-- p: [9, 10]
+- p: [7, 19]
   k: $$mdi:apple-keyboard-shift$$
+- p: [20, 8]
+  k: $$mdi:apple-keyboard-control$$
+- p: [21, 9]
+  k: $$mdi:apple-keyboard-option$$
+- p: [6, 18]
+  k: $$mdi:apple-keyboard-command$$
+- p: [16, 4]
+  k: $$mdi:apple-keyboard-shift$$
+- p: [15, 3]
+  k: $$mdi:apple-keyboard-control$$
+- p: [14, 2]
+  k: $$mdi:apple-keyboard-option$$
+- p: [17, 5]
+  k: $$mdi:apple-keyboard-command$$
