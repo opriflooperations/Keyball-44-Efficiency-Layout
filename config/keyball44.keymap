@@ -229,7 +229,7 @@
             label = "CMK-DH+";
             bindings = <
 &mt LC(LS(TAB)) LC(LG(LEFT))  &kp Q            &kp W        &kp F        &kp P        &kp B                             &kp J                        &kp L  &kp U      &kp Y       &kp TAB                 &mt LC(TAB) LC(LG(RIGHT))
-&lt 6 ESCAPE                  &kp A            &kp R        &kp S        &kp T        &kp G                             &kp M                        &kp N  &kp E      &kp I       &kp O                   &lt 5 ENTER
+&mt ENTER ESCAPE              &kp A            &lt 6 R      &lt 5 S      &kp T        &kp G                             &kp M                        &kp N  &lt 5 E    &lt 6 I     &kp O                   &mt ESCAPE ENTER
 &lt 3 PRINTSCREEN             &kp Z            &kp X        &kp C        &kp D        &kp V                             &kp K                        &kp H  &kp COMMA  &kp PERIOD  &mt KP_DIVIDE QUESTION  &lt 4 LC(F)
 &mt LC(LS(S)) LS(LC(D))       &mt LC(Y) LC(Z)  &lt 2 LC(C)  &lt 1 SPACE  &lt 5 LC(X)             &mt LC(DELETE) DELETE  &mt LC(BACKSPACE) BACKSPACE                                                        &kp SEMICOLON
             >;
