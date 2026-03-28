@@ -31,10 +31,10 @@
     combos {
         compatible = "zmk,combos";
 
-        Window_Task_View {
+        Page_Refresh {
             timeout-ms = <50>;
-            key-positions = <20 21>; // E and I keys
-            bindings = <&kp LG(TAB)>;
+            key-positions = <21 33>; // E and I keys
+            bindings = <&kp LC(R)>;
         };
 
         Page_Backwards {
@@ -109,9 +109,9 @@
             key-positions = <16 15 14>;
         };
 
-        Refresh_Page {
-            bindings = <&kp LC(R)>;
-            key-positions = <21 33>;
+        Cut {
+            bindings = <&kp LC(X)>;
+            key-positions = <17 16>;
         };
 
         Snipe_Layer_Lock {
@@ -183,6 +183,11 @@
             bindings = <&kp ENTER>;
             key-positions = <19 20>;
         };
+
+        Window_Task_View {
+            bindings = <&kp LG(TAB)>;
+            key-positions = <21 20>;
+        };
     };
 
     behaviors {
@@ -233,10 +238,10 @@
         default_layer {
             label = "CMK-DH+";
             bindings = <
-&mt LC(LS(TAB)) LC(LG(LEFT))  &kp Q            &kp W        &kp F        &kp P        &kp B                             &kp J                        &kp L  &kp U      &kp Y       &kp TAB                 &mt LC(TAB) LC(LG(RIGHT))
-&mt ENTER ESCAPE              &kp A            &lt 6 R      &lt 5 S      &kp T        &kp G                             &kp M                        &kp N  &lt 5 E    &lt 6 I     &kp O                   &mt ESCAPE ENTER
-&lt 3 PRINTSCREEN             &kp Z            &kp X        &kp C        &kp D        &kp V                             &kp K                        &kp H  &kp COMMA  &kp PERIOD  &mt KP_DIVIDE QUESTION  &lt 4 LC(F)
-&mt LC(LS(S)) LS(LC(D))       &mt LC(Y) LC(Z)  &lt 2 LC(C)  &lt 1 SPACE  &lt 5 LC(X)             &mt LC(DELETE) DELETE  &mt LC(BACKSPACE) BACKSPACE                                                        &kp SEMICOLON
+&mt LC(LS(TAB)) LC(LG(LEFT))  &kp Q            &kp W        &kp F        &kp P         &kp B                             &kp J                        &kp L  &kp U      &kp Y       &mt CAPSLOCK TAB        &mt LC(TAB) LC(LG(RIGHT))
+&none                         &kp A            &lt 6 R      &lt 5 S      &kp T         &kp G                             &kp M                        &kp N  &lt 5 E    &lt 6 I     &kp O                   &kp SEMI
+&lt 3 PRINTSCREEN             &kp Z            &kp X        &kp C        &kp D         &kp V                             &kp K                        &kp H  &kp COMMA  &kp PERIOD  &mt KP_DIVIDE QUESTION  &lt 4 LC(F)
+&mt LC(LS(S)) LS(LC(D))       &mt LC(Y) LC(Z)  &lt 2 LC(C)  &lt 1 SPACE  &lt 5 ESCAPE             &mt LC(DELETE) DELETE  &mt LC(BACKSPACE) BACKSPACE                                                        &caps_word
             >;
         };
 
