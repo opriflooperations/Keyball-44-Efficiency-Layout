@@ -96,7 +96,7 @@
 
         Close_Tab {
             bindings = <&kp LC(W)>;
-            key-positions = <42 18>;
+            key-positions = <42 20>;
         };
 
         Paste {
@@ -111,7 +111,7 @@
 
         Refresh_Page {
             bindings = <&kp LC(R)>;
-            key-positions = <19 20 21 22>;
+            key-positions = <42 21>;
         };
 
         Snipe_Layer_Lock {
