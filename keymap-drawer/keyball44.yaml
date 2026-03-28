@@ -340,13 +340,13 @@ combos:
   k: Ctl+Sft+T
 - p: [39, 38]
   k: {t: V, h: '$$mdi:apple-keyboard-command$$'}
-- p: [42, 18]
+- p: [42, 20]
   k: Ctl+W
 - p: [16, 15]
   k: Ctl+V
 - p: [16, 15, 14]
   k: Ctl+Sft+V
-- p: [19, 20, 21, 22]
+- p: [42, 21]
   k: Ctl+R
 - p: [19, 22]
   k: {t: SNIPE, h: toggle}
