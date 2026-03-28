@@ -45,32 +45,32 @@
 
         Page_Forward {
             timeout-ms = <50>;
-            key-positions = <21 20 19>; // N, E, and I keys
+            key-positions = <21 22>; // N, E, and I keys
             bindings = <&kp LA(RIGHT)>;
         };
 
         Number_Layer_Lock {
-            bindings = <&sl 1>;
+            bindings = <&tog 1>;
             key-positions = <16 19>;
         };
 
         Scroll_Layer_Lock {
-            bindings = <&sl 5>;
+            bindings = <&tog 5>;
             key-positions = <19 21>;
         };
 
         Symbol_Layer_Lock {
-            bindings = <&sl 2>;
+            bindings = <&tog 2>;
             key-positions = <14 21>;
         };
 
         Function_Layer_Lock {
-            bindings = <&sl 3>;
+            bindings = <&tog 3>;
             key-positions = <13 22>;
         };
 
         Mouse_Layer_Lock {
-            bindings = <&sl 4>;
+            bindings = <&tog 4>;
             key-positions = <15 20>;
         };
 
@@ -91,17 +91,17 @@
 
         Clipboard {
             bindings = <&kp LG(V)>;
-            key-positions = <16 15>;
+            key-positions = <39 38>;
         };
 
         Close_Tab {
             bindings = <&kp LC(W)>;
-            key-positions = <42 19 20 21>;
+            key-positions = <42 18>;
         };
 
         Paste {
             bindings = <&kp LC(V)>;
-            key-positions = <38 39>;
+            key-positions = <16 15>;
         };
 
         No_Format_Paste {
@@ -115,7 +115,7 @@
         };
 
         Snipe_Layer_Lock {
-            bindings = <&sl 6>;
+            bindings = <&tog 6>;
             key-positions = <19 22>;
         };
 
