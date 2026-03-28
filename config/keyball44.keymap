@@ -138,6 +138,11 @@
             bindings = <&kp LC(LS(TAB))>;
             key-positions = <7 8>;
         };
+
+        SHIFT_TEST {
+            bindings = <&kp LEFT_SHIFT>;
+            key-positions = <9 10>;
+        };
     };
 
     behaviors {
