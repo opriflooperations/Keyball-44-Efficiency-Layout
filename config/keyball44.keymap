@@ -142,7 +142,7 @@
 
         BROKEN_Shift_Homerow_Mod_RH {
             bindings = <&kp LEFT_SHIFT>;
-            key-positions = <>;
+            key-positions = <19 7>;
         };
 
         Ctrl_Homerow_Mod_RH {
@@ -198,11 +198,6 @@
         Layer_Reset_LH {
             bindings = <&to 0>;
             key-positions = <13 14>;
-        };
-
-        Homerow_Mod_Shift_RH {
-            bindings = <&kp RIGHT_SHIFT>;
-            key-positions = <19 7>;
         };
     };
 
