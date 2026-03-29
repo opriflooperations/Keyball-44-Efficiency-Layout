@@ -142,8 +142,7 @@
 
         Shift_Homerow_Mod_RH {
             bindings = <&kp RSHIFT>;
-            key-positions = <19 7>;
-            timeout-ms = <500>;
+            key-positions = <19 18>;
         };
 
         Ctrl_Homerow_Mod_RH {
@@ -163,7 +162,7 @@
 
         Shift_Homerow_Mod_LH {
             bindings = <&kp LEFT_SHIFT>;
-            key-positions = <16 4>;
+            key-positions = <16 17>;
         };
 
         Ctrl_Homerow_Mod_LH {
