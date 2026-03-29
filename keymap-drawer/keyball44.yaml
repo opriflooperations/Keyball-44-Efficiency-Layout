@@ -334,7 +334,7 @@ combos:
   k: {t: MOUSE, h: toggle}
 - p: [17, 18]
   k: {t: CMK-DH+, h: toggle}
-- p: [19, 42]
+- p: [42, 20]
   k: Ctl+T
 - p: [20, 19, 42]
   k: Ctl+Sft+T
@@ -358,7 +358,7 @@ combos:
   k: Ctl+$$mdi:keyboard-tab$$
 - p: [7, 8]
   k: Ctl+Sft+$$mdi:keyboard-tab$$
-- p: [23, 35, 43]
+- p: [7, 19]
   k: A
 - p: [20, 8]
   k: $$mdi:apple-keyboard-control$$
@@ -366,7 +366,7 @@ combos:
   k: $$mdi:apple-keyboard-option$$
 - p: [6, 18]
   k: $$mdi:apple-keyboard-command$$
-- p: [16, 17]
+- p: [16, 4]
   k: $$mdi:apple-keyboard-shift$$
 - p: [15, 3]
   k: $$mdi:apple-keyboard-control$$
@@ -382,5 +382,3 @@ combos:
   k: {t: CMK-DH+, h: toggle}
 - p: [13, 14]
   k: {t: CMK-DH+, h: toggle}
-- p: [18, 19]
-  k: $$mdi:apple-keyboard-shift$$
