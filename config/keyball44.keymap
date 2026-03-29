@@ -141,8 +141,8 @@
         };
 
         Shift_Homerow_Mod_RH {
-            bindings = <&kp RIGHT_SHIFT>;
-            key-positions = <7 19>;
+            bindings = <&kp LEFT_SHIFT>;
+            key-positions = <19 7>;
         };
 
         Ctrl_Homerow_Mod_RH {
