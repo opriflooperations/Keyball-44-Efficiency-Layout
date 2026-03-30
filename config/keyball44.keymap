@@ -157,7 +157,7 @@
 
         Windows_Homerow_Mod_RH {
             bindings = <&kp LEFT_GUI>;
-            key-positions = <6 18 6>;
+            key-positions = <6 18>;
         };
 
         Shift_Homerow_Mod_LH {
