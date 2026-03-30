@@ -322,21 +322,21 @@ combos:
   k: Alt+$$mdi:arrow-left-bold$$
 - p: [20, 32]
   k: Alt+$$mdi:arrow-right-bold$$
-- p: [16, 19]
+- p: [4, 7]
   k: {t: NUM, h: toggle}
-- p: [19, 21]
+- p: [31, 33]
   k: {t: SCROLL, h: toggle}
-- p: [14, 21]
+- p: [9, 2]
   k: {t: SYM, h: toggle}
-- p: [13, 22]
+- p: [10, 1]
   k: {t: FUN, h: toggle}
-- p: [15, 20]
+- p: [8, 3]
   k: {t: MOUSE, h: toggle}
-- p: [17, 18]
+- p: [6, 5]
   k: {t: CMK-DH+, h: toggle}
 - p: [42, 20]
   k: Ctl+T
-- p: [20, 19, 42]
+- p: [42, 22]
   k: Ctl+Sft+T
 - p: [39, 38]
   k: {t: V, h: '$$mdi:apple-keyboard-command$$'}
@@ -364,7 +364,7 @@ combos:
   k: $$mdi:apple-keyboard-control$$
 - p: [21, 9]
   k: $$mdi:apple-keyboard-option$$
-- p: [6, 18]
+- p: [6, 18, 6]
   k: $$mdi:apple-keyboard-command$$
 - p: [16, 4]
   k: $$mdi:apple-keyboard-shift$$
