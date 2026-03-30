@@ -219,6 +219,21 @@
             bindings = <&kp DOWN>;
             key-positions = <17 29 39>;
         };
+
+        the_Text_Fill_Macro {
+            bindings = <&the_Text_Macro>;
+            key-positions = <15 27>;
+        };
+
+        tion_Text_Fill_Macro {
+            bindings = <&tion_Text_Suffix_Macro>;
+            key-positions = <16 28>;
+        };
+
+        ing_Text_Fill_Macro {
+            bindings = <&ing_Text_Macro>;
+            key-positions = <14 26>;
+        };
     };
 
     behaviors {
@@ -260,6 +275,50 @@
             require-prior-idle-ms = <125>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
+        };
+    };
+
+    macros {
+        the_Text_Macro: The_Text_Macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp T &kp H &kp E>;
+            label = "THE_TEXT_MACRO";
+        };
+
+        and_Text_Macro: and_text_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp A &kp N &kp D>;
+            label = "AND_TEXT_MACRO";
+        };
+
+        ing_Text_Macro: ing_Text_Macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp I &kp N &kp G>;
+            label = "ING_TEXT_MACRO";
+        };
+
+        tion_Text_Suffix_Macro: tion_Text_Macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp T &kp I &kp O &kp N>;
+            label = "TION_TEXT_MACRO";
+        };
+
+        ment_Text_Suffix_Macro: ment_Text_Suffix_Macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp M &kp E &kp N &kp T>;
+            label = "MENT_TEXT_SUFFIX_MACRO";
+        };
+
+        ATgmailDOTcom_Text_Macro: ATgmailDOTcom_Text_Macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp AT &kp G &kp M &kp A &kp I &kp L &kp DOT &kp C &kp O &kp M>;
+            label = "ATGMAILDOTCOM_TEXT_MACRO";
         };
     };
 
