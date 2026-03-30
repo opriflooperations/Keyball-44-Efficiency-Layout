@@ -180,11 +180,6 @@
             key-positions = <17 5>;
         };
 
-        Enter {
-            bindings = <&kp ENTER>;
-            key-positions = <19 20>;
-        };
-
         Window_Task_View {
             bindings = <&kp LG(TAB)>;
             key-positions = <21 20>;
@@ -198,6 +193,11 @@
         Layer_Reset_LH {
             bindings = <&to 0>;
             key-positions = <13 14>;
+        };
+
+        Enter {
+            bindings = <&kp ENTER>;
+            key-positions = <42 19>;
         };
     };
 
