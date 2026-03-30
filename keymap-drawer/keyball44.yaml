@@ -390,3 +390,9 @@ combos:
   k: $$mdi:arrow-up-bold$$
 - p: [17, 29, 39]
   k: $$mdi:arrow-down-bold$$
+- p: [15, 27]
+  k: '&the_Text_Macro'
+- p: [16, 28]
+  k: '&tion_Text_Suffix_Macro'
+- p: [14, 26]
+  k: '&ing_Text_Macro'
