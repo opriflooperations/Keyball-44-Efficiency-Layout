@@ -324,7 +324,7 @@ combos:
   k: Alt+$$mdi:arrow-right-bold$$
 - p: [4, 7]
   k: {t: NUM, h: toggle}
-- p: [22, 23]
+- p: [41, 42]
   k: {t: SCROLL, h: toggle}
 - p: [9, 2]
   k: {t: SYM, h: toggle}
