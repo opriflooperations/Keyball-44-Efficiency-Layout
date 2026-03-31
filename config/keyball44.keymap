@@ -57,7 +57,7 @@
 
         Scroll_Layer_Lock {
             bindings = <&tog 5>;
-            key-positions = <31 33>;
+            key-positions = <22 23>;
         };
 
         Symbol_Layer_Lock {
@@ -117,7 +117,7 @@
 
         Snipe_Layer_Lock {
             bindings = <&tog 6>;
-            key-positions = <19 22>;
+            key-positions = <22 10>;
         };
 
         Window_Right {
