@@ -240,14 +240,34 @@
             key-positions = <13 25>;
         };
 
-        Tripple_Click_Macro {
+        Tripple_Click_Macro_RH {
             bindings = <&Tripple_Click_Macro>;
             key-positions = <18 19>;
         };
 
-        Doubble_Click {
+        Doubble_Click_Macro_RH {
             bindings = <&Double_Click_Macro>;
             key-positions = <19 20>;
+        };
+
+        Shift_Enter {
+            bindings = <&kp LS(ENTER)>;
+            key-positions = <41 42>;
+        };
+
+        Ctrl_Enter {
+            bindings = <&kp LC(ENTER)>;
+            key-positions = <19 41 42>;
+        };
+
+        Tripple_Click_Macro_LH {
+            bindings = <&Tripple_Click_Macro>;
+            key-positions = <17 16>;
+        };
+
+        Doubble_Click_Macro_LH {
+            bindings = <&Double_Click_Macro>;
+            key-positions = <15 14>;
         };
     };
 
@@ -417,10 +437,10 @@
         snipe_layer {
             label = "SNIPE";
             bindings = <
-&trans  &kp N1          &kp N2     &kp N3        &kp N4     &kp N5                     &kp N6         &kp N7     &kp N8        &kp N9     &kp N0     &trans
-&trans  &mkp MCLK       &mkp RCLK  &lt 5 SPACE   &mkp LCLK  &kp PAGE_UP                &kp PAGE_UP    &mkp LCLK  &lt 5 SPACE   &mkp RCLK  &mkp MCLK  &trans
-&trans  &kp LEFT_ARROW  &kp DOWN   &kp UP_ARROW  &kp RIGHT  &kp PAGE_DOWN              &kp PAGE_DOWN  &kp LEFT   &kp UP_ARROW  &kp DOWN   &kp RIGHT  &trans
-&trans  &trans          &to 0      &to 6         &trans                        &trans  &trans                                                        &trans
+&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans              &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans              &trans  &trans                                  &trans
             >;
         };
     };
