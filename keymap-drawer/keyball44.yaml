@@ -402,7 +402,7 @@ combos:
   k: '&Tripple_Click_Macro'
 - p: [19, 20]
   k: '&Double_Click_Macro'
-- p: [41, 42]
+- p: [42, 18]
   k: {t: 'Sft+$$mdi:keyboard-return$$', type: enter}
 - p: [19, 41, 42]
   k: {t: 'Ctl+$$mdi:keyboard-return$$', type: enter}
