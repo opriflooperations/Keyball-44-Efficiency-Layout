@@ -36,7 +36,7 @@ layers:
   - {t: ',', s: <}
   - .
   - {t: '?', h: KP DIVIDE}
-  - {t: Ctl+F, h: MOUSE}
+  - {t: Ctl+F, h: FUN}
   - {t: Sft+Ctl+D, h: Ctl+Sft+S}
   - {t: Ctl+Z, h: Ctl+Y}
   - {t: Ctl+C, h: SYM}
@@ -171,7 +171,7 @@ layers:
   - MUTE
   - EP TOG
   - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - {type: held}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
@@ -216,7 +216,7 @@ layers:
   - $$mdi:arrow-right-bold$$
   - $$mdi:arrow-up-bold$$
   - $$mdi:arrow-down-bold$$
-  - {type: held}
+  - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
@@ -261,7 +261,7 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
-  - {type: held alternate}
+  - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
