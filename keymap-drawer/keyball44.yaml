@@ -334,7 +334,7 @@ combos:
   k: {t: MOUSE, h: toggle}
 - p: [6, 5]
   k: {t: CMK-DH+, h: toggle}
-- p: [42, 18]
+- p: [42, 20]
   k: Ctl+T
 - p: [42, 22]
   k: Ctl+Sft+T
@@ -402,7 +402,7 @@ combos:
   k: '&Tripple_Click_Macro'
 - p: [19, 20]
   k: '&Double_Click_Macro'
-- p: [42, 20]
+- p: [42, 18]
   k: {t: 'Sft+$$mdi:keyboard-return$$', type: enter}
 - p: [19, 41, 42]
   k: {t: 'Ctl+$$mdi:keyboard-return$$', type: enter}
