@@ -7,10 +7,13 @@ param(
 
 # Configuration - Update these paths as needed
 $RepoPath = "C:\Code\KeyBall44 Keyboard Layout Setup\Keyball44 Backend Code\Keyball-44-Efficiency-Layout"
-$BuildVersionsPath = "$env:USERPROFILE\Downloads"
+$BuildVersionsPath = "C:\Code\KeyBall44 Keyboard Layout Setup\Build Versions"
 
 # Paths
 $GhExePath = "C:\Program Files\GitHub CLI\gh.exe"
+
+# Starting version for smart versioning
+$StartingVersion = 82
 
 # Show commit message popup if no message provided
 if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
@@ -117,10 +120,35 @@ if ($null -eq $runDbId) {
 Write-Host "Waiting for workflow run $runDbId to complete..."
 & $GhExePath run watch $runDbId
 
-# Create timestamped subfolder for this build
-$timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm"
-$buildFolder = Join-Path $BuildVersionsPath $timestamp
-Write-Host "Creating build folder: $buildFolder"
+# ==========================================
+# SMART VERSIONING (v82+)
+# ==========================================
+
+# Ensure the build versions directory exists
+if (-not (Test-Path $BuildVersionsPath)) {
+    Write-Host "Creating build versions directory: $BuildVersionsPath"
+    New-Item -ItemType Directory -Path $BuildVersionsPath -Force | Out-Null
+}
+
+# Find all version folders (folders starting with 'v')
+$versionFolders = Get-ChildItem -Path $BuildVersionsPath -Directory | Where-Object { $_.Name -match '^v\d+$' }
+
+$nextVersionNumber = $StartingVersion
+
+if ($versionFolders -and $versionFolders.Count -gt 0) {
+    # Extract version numbers and find the highest
+    $versionNumbers = $versionFolders | ForEach-Object {
+        [int]($_.Name -replace 'v', '')
+    }
+    $highestVersion = $versionNumbers | Measure-Object -Maximum | Select-Object -ExpandProperty Maximum
+    $nextVersionNumber = $highestVersion + 1
+    Write-Host "Found existing versions. Highest version: v$highestVersion"
+}
+
+$versionFolderName = "v$nextVersionNumber"
+$buildFolder = Join-Path $BuildVersionsPath $versionFolderName
+
+Write-Host "Creating version folder: $buildFolder"
 New-Item -ItemType Directory -Path $buildFolder -Force | Out-Null
 
 # Download the firmware artifact for the specific run
@@ -142,15 +170,24 @@ if ($zipFile) {
     Write-Host "=== Build Complete ==="
     Write-Host "Firmware location: $buildFolder"
     
-    # List extracted .uf2 files
-    $uf2Files = Get-ChildItem -Path $buildFolder -Filter "*.uf2"
+    # Search for .uf2 files in the new folder
+    $uf2Files = Get-ChildItem -Path $buildFolder -Filter "*.uf2" -Recurse
     if ($uf2Files) {
-        Write-Host "Extracted .uf2 files:"
+        Write-Host "Found .uf2 files:"
         foreach ($uf2 in $uf2Files) {
             Write-Host "  - $($uf2.Name)"
         }
     }
+    
+    # Auto-Open: Run explorer.exe on the new version folder
+    Write-Host ""
+    Write-Host "Opening build folder in Explorer..."
+    explorer.exe $buildFolder
 } else {
     Write-Host "WARNING: No ZIP artifact found in $buildFolder"
     Write-Host "Please check the GitHub Actions run manually."
+    
+    # Still open the folder in case there are other files
+    Write-Host "Opening build folder in Explorer anyway..."
+    explorer.exe $buildFolder
 }
