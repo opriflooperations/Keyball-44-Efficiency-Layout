@@ -65,42 +65,23 @@ while ($retryCount -lt $maxRetries -and $null -eq $runId) {
     $retryCount++
     Write-Host "Checking for workflow run... (attempt $retryCount of $maxRetries)"
     
-    # Get the current commit SHA and branch name
-    $currentSha = git rev-parse HEAD
-    $targetBranch = "Main"
-    
-    # Get runs filtered by branch and status (queued, in_progress, or completed)
-    $runs = & $GhExePath run list --limit 10 --json id,name,status,conclusion,headBranch,headSha --workflow build.yml --branch $targetBranch 2>$null | ConvertFrom-Json
+    # Get the latest run for build.yml on Main branch - status only, no conclusion filter
+    $runs = & $GhExePath run list --workflow build.yml --limit 1 --json id,name,status --branch Main 2>$null | ConvertFrom-Json
     
     if ($runs -and $runs.Count -gt 0) {
-        # Find the run matching our commit SHA on the Main branch
-        $matchedRun = $runs | Where-Object { 
-            $_.headSha -eq $currentSha -and 
-            $_.headBranch -eq $targetBranch -and
-            ($_.status -eq "queued" -or $_.status -eq "in_progress" -or $_.status -eq "completed")
-        } | Select-Object -First 1
+        $latestRun = $runs[0]
         
-        if ($matchedRun) {
-            $runId = $matchedRun.id
-            Write-Host "Found workflow run: $($matchedRun.name) (ID: $runId, Status: $($matchedRun.status))"
-            
-            # If completed, check if it was successful
-            if ($matchedRun.status -eq "completed") {
-                if ($matchedRun.conclusion -eq "success") {
-                    Write-Host "Build already completed successfully!"
-                    break
-                } else {
-                    Write-Host "ERROR: Previous build failed with conclusion: $($matchedRun.conclusion)"
-                    exit 1
-                }
-            }
-            # If queued or in_progress, break to watch it
+        # Check if status is in_progress or queued - watch immediately
+        if ($latestRun.status -eq "in_progress" -or $latestRun.status -eq "queued") {
+            $runId = $latestRun.id
+            Write-Host "Found workflow run: $($latestRun.name) (ID: $runId, Status: $($latestRun.status))"
+            Write-Host "Starting to watch the run..."
             break
         }
     }
     
     if ($null -eq $runId) {
-        Write-Host "No matching run found for branch $targetBranch and SHA $currentSha, waiting 5 seconds..."
+        Write-Host "No in-progress or queued run found, waiting 5 seconds..."
         Start-Sleep -Seconds 5
     }
 }
