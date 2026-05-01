@@ -136,13 +136,25 @@ $versionFolders = Get-ChildItem -Path $BuildVersionsPath -Directory | Where-Obje
 $nextVersionNumber = $StartingVersion
 
 if ($versionFolders -and $versionFolders.Count -gt 0) {
-    # Extract version numbers and find the highest
+    # Extract version numbers using regex to capture only the numeric part
     $versionNumbers = $versionFolders | ForEach-Object {
-        [int]($_.Name -replace 'v', '')
+        if ($_.Name -match '^v(\d+)$') {
+            [int]$matches[1]
+        }
+    } | Where-Object { $null -ne $_ }
+    
+    if ($versionNumbers -and $versionNumbers.Count -gt 0) {
+        # Use integer comparison to ensure 100 > 81
+        $highestVersion = ($versionNumbers | Measure-Object -Maximum).Maximum
+        
+        # Enforce v82 floor
+        if ($highestVersion -lt $StartingVersion) {
+            $highestVersion = ($StartingVersion - 1)
+        }
+        
+        $nextVersionNumber = $highestVersion + 1
+        Write-Host "Found existing versions. Highest version: v$highestVersion"
     }
-    $highestVersion = $versionNumbers | Measure-Object -Maximum | Select-Object -ExpandProperty Maximum
-    $nextVersionNumber = $highestVersion + 1
-    Write-Host "Found existing versions. Highest version: v$highestVersion"
 }
 
 $versionFolderName = "v$nextVersionNumber"
