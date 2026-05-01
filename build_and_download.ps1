@@ -56,45 +56,66 @@ git push origin Main
 Write-Host "Waiting for GitHub Actions to start the workflow..."
 Start-Sleep -Seconds 5
 
-# Find the workflow run (with retry logic)
+# ==========================================
+# ZERO-FAILURE WORKFLOW MONITORING
+# ==========================================
+
+# Find the workflow run using direct databaseId approach
 $maxRetries = 12  # 12 retries * 5 seconds = 60 seconds max wait
 $retryCount = 0
-$runId = $null
+$runDbId = $null
 
-while ($retryCount -lt $maxRetries -and $null -eq $runId) {
+while ($retryCount -lt $maxRetries -and $null -eq $runDbId) {
     $retryCount++
-    Write-Host "Checking for workflow run... (attempt $retryCount of $maxRetries)"
     
-    # Get the latest run for build.yml on Main branch - status only, no conclusion filter
-    $runs = & $GhExePath run list --workflow build.yml --limit 1 --json id,name,status --branch Main 2>$null | ConvertFrom-Json
+    # RULE 1: Echo Rule - Print exact command before execution
+    $commandToRun = "& `"$GhExePath`" run list --workflow build.yml --limit 1 --json name,status,conclusion,databaseId"
+    Write-Host "Executing: $commandToRun"
     
-    if ($runs -and $runs.Count -gt 0) {
-        $latestRun = $runs[0]
+    # RULE 2: Direct Output Check - Capture and print raw text BEFORE parsing
+    $rawOutput = & $GhExePath run list --workflow build.yml --limit 1 --json name,status,conclusion,databaseId 2>&1
+    
+    # Print raw output for transparency
+    Write-Host "Raw GH CLI output: $rawOutput"
+    
+    # Check if raw output is empty
+    if ([string]::IsNullOrWhiteSpace($rawOutput)) {
+        Write-Host "WARNING: GH CLI returned empty output - authentication may be required"
+        Write-Host "Please run 'gh auth login' in your terminal if not already authenticated"
+    } else {
+        # RULE 3: Stop Status Filter - Just get first item, check for databaseId existence
+        $runs = $rawOutput | ConvertFrom-Json
         
-        # Check if status is in_progress or queued - watch immediately
-        if ($latestRun.status -eq "in_progress" -or $latestRun.status -eq "queued") {
-            $runId = $latestRun.id
-            Write-Host "Found workflow run: $($latestRun.name) (ID: $runId, Status: $($latestRun.status))"
-            Write-Host "Starting to watch the run..."
-            break
+        if ($runs -and $runs.Count -gt 0) {
+            $latestRun = $runs[0]
+            
+            # RULE 4: Use Database ID - Extract databaseId and watch immediately
+            if ($latestRun.databaseId) {
+                $runDbId = $latestRun.databaseId
+                Write-Host "Found workflow run: $($latestRun.name) (databaseId: $runDbId, Status: $($latestRun.status), Conclusion: $($latestRun.conclusion))"
+                Write-Host "Starting to watch the run..."
+                break
+            } else {
+                Write-Host "First run found but has no databaseId, waiting 5 seconds..."
+            }
         }
     }
     
-    if ($null -eq $runId) {
-        Write-Host "No in-progress or queued run found, waiting 5 seconds..."
+    if ($null -eq $runDbId) {
+        Write-Host "No run with databaseId found yet, waiting 5 seconds... (attempt $retryCount of $maxRetries)"
         Start-Sleep -Seconds 5
     }
 }
 
-if ($null -eq $runId) {
-    Write-Host "ERROR: Could not find a running workflow after 60 seconds"
+if ($null -eq $runDbId) {
+    Write-Host "ERROR: Could not find a workflow run with databaseId after 60 seconds"
     Write-Host "Please check your GitHub Actions and run manually if needed"
     exit 1
 }
 
 # Wait for the specific workflow run to complete
-Write-Host "Waiting for workflow run $runId to complete..."
-& $GhExePath run watch $runId --workflow build.yml
+Write-Host "Waiting for workflow run $runDbId to complete..."
+& $GhExePath run watch $runDbId --workflow build.yml
 
 # Create timestamped subfolder for this build
 $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm"
@@ -103,8 +124,8 @@ Write-Host "Creating build folder: $buildFolder"
 New-Item -ItemType Directory -Path $buildFolder -Force | Out-Null
 
 # Download the firmware artifact for the specific run
-Write-Host "Downloading firmware artifact for run $runId..."
-& $GhExePath run download $runId --dir $buildFolder --workflow build.yml
+Write-Host "Downloading firmware artifact for run $runDbId..."
+& $GhExePath run download $runDbId --dir $buildFolder --workflow build.yml
 
 # Find and extract the ZIP file
 Write-Host "Looking for firmware artifact..."
