@@ -6,6 +6,9 @@
 #define SCROLL   5
 #define SNIPE    6
 
+#include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_transform.h>
+
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/mouse.h>
 #include <behaviors.dtsi>
@@ -316,6 +319,14 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
+
+        scroll_scaler: scroll_scaler {
+            compatible = "zmk,input-processor-scaler";
+            #input-processor-cells = <2>;
+            type = <INPUT_EV_REL>;
+            codes = <INPUT_REL_HWHEEL INPUT_REL_WHEEL>;
+            track-remainders;
+        };
     };
 
     macros {
@@ -449,4 +460,8 @@
             >;
         };
     };
+};
+
+&trackball_peripheral_listener {
+    input-processors = <&scroll_scaler 1 4>;
 };
