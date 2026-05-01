@@ -70,7 +70,7 @@ while ($retryCount -lt $maxRetries -and $null -eq $runId) {
     $targetBranch = "Main"
     
     # Get runs filtered by branch and status (queued, in_progress, or completed)
-    $runs = & $GhExePath run list --limit 10 --json id,name,status,conclusion,headBranch,headSha --branch $targetBranch 2>$null | ConvertFrom-Json
+    $runs = & $GhExePath run list --limit 10 --json id,name,status,conclusion,headBranch,headSha --workflow build.yml --branch $targetBranch 2>$null | ConvertFrom-Json
     
     if ($runs -and $runs.Count -gt 0) {
         # Find the run matching our commit SHA on the Main branch
@@ -113,7 +113,7 @@ if ($null -eq $runId) {
 
 # Wait for the specific workflow run to complete
 Write-Host "Waiting for workflow run $runId to complete..."
-& $GhExePath run watch $runId
+& $GhExePath run watch $runId --workflow build.yml
 
 # Create timestamped subfolder for this build
 $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm"
@@ -123,7 +123,7 @@ New-Item -ItemType Directory -Path $buildFolder -Force | Out-Null
 
 # Download the firmware artifact for the specific run
 Write-Host "Downloading firmware artifact for run $runId..."
-& $GhExePath run download $runId --dir $buildFolder
+& $GhExePath run download $runId --dir $buildFolder --workflow build.yml
 
 # Find and extract the ZIP file
 Write-Host "Looking for firmware artifact..."
