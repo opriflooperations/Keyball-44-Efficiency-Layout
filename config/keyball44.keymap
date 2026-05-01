@@ -450,3 +450,7 @@
         };
     };
 };
+
+&trackball {
+    input-processors = <&zip_xy_scaler 1 3>;
+};
