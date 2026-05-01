@@ -269,6 +269,11 @@
             bindings = <&Double_Click_Macro>;
             key-positions = <15 14>;
         };
+
+        Lock_Screen {
+            bindings = <&kp LG(L)>;
+            key-positions = <9 8>;
+        };
     };
 
     behaviors {
