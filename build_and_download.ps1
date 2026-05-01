@@ -65,22 +65,42 @@ while ($retryCount -lt $maxRetries -and $null -eq $runId) {
     $retryCount++
     Write-Host "Checking for workflow run... (attempt $retryCount of $maxRetries)"
     
-    # Get the latest run and filter for in-progress status
-    $runs = & $GhExePath run list --limit 5 --json id,name,status,conclusion 2>$null | ConvertFrom-Json
+    # Get the current commit SHA and branch name
+    $currentSha = git rev-parse HEAD
+    $targetBranch = "Main"
+    
+    # Get runs filtered by branch and status (queued, in_progress, or completed)
+    $runs = & $GhExePath run list --limit 10 --json id,name,status,conclusion,headBranch,headSha --branch $targetBranch 2>$null | ConvertFrom-Json
     
     if ($runs -and $runs.Count -gt 0) {
-        # Find the first in-progress run (most recent)
-        $inProgressRun = $runs | Where-Object { $_.status -eq "in_progress" } | Select-Object -First 1
+        # Find the run matching our commit SHA on the Main branch
+        $matchedRun = $runs | Where-Object { 
+            $_.headSha -eq $currentSha -and 
+            $_.headBranch -eq $targetBranch -and
+            ($_.status -eq "queued" -or $_.status -eq "in_progress" -or $_.status -eq "completed")
+        } | Select-Object -First 1
         
-        if ($inProgressRun) {
-            $runId = $inProgressRun.id
-            Write-Host "Found workflow run: $($inProgressRun.name) (ID: $runId)"
+        if ($matchedRun) {
+            $runId = $matchedRun.id
+            Write-Host "Found workflow run: $($matchedRun.name) (ID: $runId, Status: $($matchedRun.status))"
+            
+            # If completed, check if it was successful
+            if ($matchedRun.status -eq "completed") {
+                if ($matchedRun.conclusion -eq "success") {
+                    Write-Host "Build already completed successfully!"
+                    break
+                } else {
+                    Write-Host "ERROR: Previous build failed with conclusion: $($matchedRun.conclusion)"
+                    exit 1
+                }
+            }
+            # If queued or in_progress, break to watch it
             break
         }
     }
     
     if ($null -eq $runId) {
-        Write-Host "No in-progress run found, waiting 5 seconds..."
+        Write-Host "No matching run found for branch $targetBranch and SHA $currentSha, waiting 5 seconds..."
         Start-Sleep -Seconds 5
     }
 }
