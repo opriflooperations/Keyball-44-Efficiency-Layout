@@ -368,6 +368,7 @@
             label = "TRIPPLE_CLICK_MACRO";
         };
 
+
         Double_Click_Macro: Double_Click_Macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
