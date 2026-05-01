@@ -262,7 +262,7 @@
 
         Tripple_Click_Macro_LH {
             bindings = <&Tripple_Click_Macro>;
-            key-positions = <17 16>;
+            key-positions = <2 3>;
         };
 
         Doubble_Click_Macro_LH {
