@@ -410,3 +410,5 @@ combos:
   k: '&Tripple_Click_Macro'
 - p: [15, 14]
   k: '&Double_Click_Macro'
+- p: [9, 8]
+  k: Gui+L
