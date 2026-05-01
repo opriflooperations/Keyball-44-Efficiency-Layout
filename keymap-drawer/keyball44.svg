@@ -775,8 +775,8 @@ rect.held, rect.combo.held {
 <use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="539" y="200" height="18" width="18.0" class="combo enter tap glyph mdi:keyboard-return"/>
 </g>
 <g class="combo combopos-45">
-<rect rx="6" ry="6" x="266" y="88" width="28" height="26" class="combo"/>
-<text x="280" y="101" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
+<rect rx="6" ry="6" x="154" y="22" width="28" height="26" class="combo"/>
+<text x="168" y="35" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
 </g>
 <g class="combo combopos-46">
 <rect rx="6" ry="6" x="154" y="78" width="28" height="26" class="combo"/>
@@ -1251,8 +1251,8 @@ rect.held, rect.combo.held {
 <use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="539" y="200" height="18" width="18.0" class="combo enter tap glyph mdi:keyboard-return"/>
 </g>
 <g class="combo combopos-45">
-<rect rx="6" ry="6" x="266" y="88" width="28" height="26" class="combo"/>
-<text x="280" y="101" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
+<rect rx="6" ry="6" x="154" y="22" width="28" height="26" class="combo"/>
+<text x="168" y="35" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
 </g>
 <g class="combo combopos-46">
 <rect rx="6" ry="6" x="154" y="78" width="28" height="26" class="combo"/>
@@ -1733,8 +1733,8 @@ rect.held, rect.combo.held {
 <use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="539" y="200" height="18" width="18.0" class="combo enter tap glyph mdi:keyboard-return"/>
 </g>
 <g class="combo combopos-45">
-<rect rx="6" ry="6" x="266" y="88" width="28" height="26" class="combo"/>
-<text x="280" y="101" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
+<rect rx="6" ry="6" x="154" y="22" width="28" height="26" class="combo"/>
+<text x="168" y="35" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
 </g>
 <g class="combo combopos-46">
 <rect rx="6" ry="6" x="154" y="78" width="28" height="26" class="combo"/>
@@ -2216,8 +2216,8 @@ rect.held, rect.combo.held {
 <use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="539" y="200" height="18" width="18.0" class="combo enter tap glyph mdi:keyboard-return"/>
 </g>
 <g class="combo combopos-45">
-<rect rx="6" ry="6" x="266" y="88" width="28" height="26" class="combo"/>
-<text x="280" y="101" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
+<rect rx="6" ry="6" x="154" y="22" width="28" height="26" class="combo"/>
+<text x="168" y="35" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
 </g>
 <g class="combo combopos-46">
 <rect rx="6" ry="6" x="154" y="78" width="28" height="26" class="combo"/>
@@ -2694,8 +2694,8 @@ rect.held, rect.combo.held {
 <use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="539" y="200" height="18" width="18.0" class="combo enter tap glyph mdi:keyboard-return"/>
 </g>
 <g class="combo combopos-45">
-<rect rx="6" ry="6" x="266" y="88" width="28" height="26" class="combo"/>
-<text x="280" y="101" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
+<rect rx="6" ry="6" x="154" y="22" width="28" height="26" class="combo"/>
+<text x="168" y="35" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
 </g>
 <g class="combo combopos-46">
 <rect rx="6" ry="6" x="154" y="78" width="28" height="26" class="combo"/>
@@ -3170,8 +3170,8 @@ rect.held, rect.combo.held {
 <use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="539" y="200" height="18" width="18.0" class="combo enter tap glyph mdi:keyboard-return"/>
 </g>
 <g class="combo combopos-45">
-<rect rx="6" ry="6" x="266" y="88" width="28" height="26" class="combo"/>
-<text x="280" y="101" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
+<rect rx="6" ry="6" x="154" y="22" width="28" height="26" class="combo"/>
+<text x="168" y="35" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
 </g>
 <g class="combo combopos-46">
 <rect rx="6" ry="6" x="154" y="78" width="28" height="26" class="combo"/>
@@ -3642,8 +3642,8 @@ rect.held, rect.combo.held {
 <use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="539" y="200" height="18" width="18.0" class="combo enter tap glyph mdi:keyboard-return"/>
 </g>
 <g class="combo combopos-45">
-<rect rx="6" ry="6" x="266" y="88" width="28" height="26" class="combo"/>
-<text x="280" y="101" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
+<rect rx="6" ry="6" x="154" y="22" width="28" height="26" class="combo"/>
+<text x="168" y="35" class="combo tap"><tspan style="font-size: 60%">&amp;Tripple_…</tspan></text>
 </g>
 <g class="combo combopos-46">
 <rect rx="6" ry="6" x="154" y="78" width="28" height="26" class="combo"/>
