@@ -115,7 +115,7 @@ if ($null -eq $runDbId) {
 
 # Wait for the specific workflow run to complete
 Write-Host "Waiting for workflow run $runDbId to complete..."
-& $GhExePath run watch $runDbId --workflow build.yml
+& $GhExePath run watch $runDbId
 
 # Create timestamped subfolder for this build
 $timestamp = Get-Date -Format "yyyy-MM-dd_HH-mm"
@@ -125,7 +125,7 @@ New-Item -ItemType Directory -Path $buildFolder -Force | Out-Null
 
 # Download the firmware artifact for the specific run
 Write-Host "Downloading firmware artifact for run $runDbId..."
-& $GhExePath run download $runDbId --dir $buildFolder --workflow build.yml
+& $GhExePath run download $runDbId --dir $buildFolder
 
 # Find and extract the ZIP file
 Write-Host "Looking for firmware artifact..."
