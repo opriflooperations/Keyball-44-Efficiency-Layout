@@ -8,7 +8,6 @@
 
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
-
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/mouse.h>
 #include <behaviors.dtsi>
@@ -333,35 +332,35 @@
         the_Text_Macro: The_Text_Macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp T &kp H &kp E>;
+            bindings = <&kp T &kp H &kp E &kp SPACE>;
             label = "THE_TEXT_MACRO";
         };
 
         and_Text_Macro: and_text_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp A &kp N &kp D>;
+            bindings = <&kp A &kp N &kp D &kp SPACE>;
             label = "AND_TEXT_MACRO";
         };
 
         ing_Text_Macro: ing_Text_Macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp I &kp N &kp G>;
+            bindings = <&kp I &kp N &kp G &kp SPACE>;
             label = "ING_TEXT_MACRO";
         };
 
         tion_Text_Suffix_Macro: tion_Text_Macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp T &kp I &kp O &kp N>;
+            bindings = <&kp T &kp I &kp O &kp N &kp SPACE>;
             label = "TION_TEXT_MACRO";
         };
 
         ment_Text_Suffix_Macro: ment_Text_Suffix_Macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp M &kp E &kp N &kp T>;
+            bindings = <&kp M &kp E &kp N &kp T &kp SPACE>;
             label = "MENT_TEXT_SUFFIX_MACRO";
         };
 
@@ -462,6 +461,4 @@
     };
 };
 
-&trackball_peripheral_listener {
-    input-processors = <&scroll_scaler 1 4>;
-};
+&trackball_peripheral_listener { input-processors = <&scroll_scaler 1 4>; };
