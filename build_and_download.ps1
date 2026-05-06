@@ -15,59 +15,93 @@ $GhExePath = "C:\Program Files\GitHub CLI\gh.exe"
 # Starting version for smart versioning
 $StartingVersion = 82
 
-# Generate AI commit message from git diff
+# Generate AI commit message using git diff analysis
 if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
-    Write-Host "Generating AI commit message..."
+    Write-Host "Analyzing changes for commit message..."
     
-    # Get staged changes summary
+    # Get all changes (staged + unstaged)
     $stagedFiles = git diff --staged --name-only 2>&1
-    $stagedStats = git diff --staged --stat 2>&1
-    
-    # Get unstaged changes
     $unstagedFiles = git diff --name-only 2>&1
     
-    # Analyze changes to generate commit message
-    $changeTypes = @()
-    $fileCount = 0
+    # Combine all changed files
+    $allFiles = @()
+    if ($stagedFiles) { $allFiles += ($stagedFiles -split "`n" | Where-Object { $_ -ne "" }) }
+    if ($unstagedFiles) { $allFiles += ($unstagedFiles -split "`n" | Where-Object { $_ -ne "" }) }
+    $allFiles = $allFiles | Select-Object -Unique
     
-    if ($stagedFiles -and $stagedFiles -ne "") {
-        $files = $stagedFiles -split "`n" | Where-Object { $_ -ne "" }
-        $fileCount = $files.Count
+    if ($allFiles.Count -eq 0) {
+        $CommitMessage = "Update firmware configuration"
+    } else {
+        # Get the actual diff content for smart analysis
+        $diffContent = git diff --staged 2>&1
+        if (-not $diffContent) { $diffContent = git diff 2>&1 }
         
-        foreach ($file in $files) {
-            if ($file -match "keymap|\.keymap") {
-                $changeTypes += "keymap"
-            } elseif ($file -match "\.conf$") {
-                $changeTypes += "config"
-            } elseif ($file -match "\.yaml$|\.yml$") {
-                $changeTypes += "config"
-            } elseif ($file -match "\.c$|\.h$") {
-                $changeTypes += "code"
+        # Analyze the diff to determine what changed
+        $changeDescription = ""
+        
+        # Check for specific patterns in the diff
+        if ($diffContent -match "DTgid|DT\(KC\)") {
+            $changeDescription = "Update key assignments"
+        }
+        if ($diffContent -match "MO\(|TG\(|OSL\(") {
+            $changeDescription += " layer changes"
+        }
+        if ($diffContent -match "&keyball") {
+            $changeDescription += " keyball settings"
+        }
+        if ($diffContent -match "TAP_DANCE|MT\(") {
+            $changeDescription += " tap/hold mods"
+        }
+        if ($diffContent -match "&bt BT_") {
+            $changeDescription += " bluetooth config"
+        }
+        
+        # Determine primary change type from file names
+        $keymapFiles = $allFiles | Where-Object { $_ -match "keymap" }
+        $configFiles = $allFiles | Where-Object { $_ -match "\.conf$|\.yaml$|\.yml$|\.overlay$" }
+        $devFiles = $allFiles | Where-Object { $_ -match "build\.yaml|\.ps1$|build\.yml" }
+        
+        if ($devFiles) {
+            $CommitMessage = "Update build system"
+        } elseif ($keymapFiles -and $configFiles) {
+            if ($changeDescription) {
+                $CommitMessage = "Update layout $changeDescription"
+            } else {
+                $CommitMessage = "Update keyboard configuration and keymap"
             }
+        } elseif ($keymapFiles) {
+            if ($changeDescription) {
+                $CommitMessage = "Update keymap $changeDescription"
+            } else {
+                $CommitMessage = "Update keymap layout"
+            }
+        } elseif ($configFiles) {
+            if ($changeDescription) {
+                $CommitMessage = "Update config $changeDescription"
+            } else {
+                $CommitMessage = "Update keyboard configuration"
+            }
+        } else {
+            $CommitMessage = "Update source files"
+        }
+        
+        # Add smart suffix based on diff size
+        $linesAdded = ([regex]::Matches($diffContent, "^\+[^+]" , [System.Text.RegularExpressions.RegexOptions]::Multiline)).Count
+        $linesRemoved = ([regex]::Matches($diffContent, "^-[^-]" , [System.Text.RegularExpressions.RegexOptions]::Multiline)).Count
+        
+        if ($linesAdded -gt 50 -or $linesRemoved -gt 30) {
+            $CommitMessage += " [major]"
+        } elseif ($linesAdded -gt 20 -or $linesRemoved -gt 15) {
+            $CommitMessage += " [minor]"
         }
     }
     
-    # Generate commit message based on changes
-    $changeTypes = $changeTypes | Select-Object -Unique
-    
-    if ($changeTypes.Count -eq 0) {
-        $CommitMessage = "Update firmware configuration"
-    } elseif ($changeTypes -contains "keymap" -and $changeTypes.Count -eq 1) {
-        $CommitMessage = "Update keymap layout"
-    } elseif ($changeTypes -contains "config" -and $changeTypes.Count -eq 1) {
-        $CommitMessage = "Update keyboard configuration"
-    } elseif ($changeTypes -contains "code") {
-        $CommitMessage = "Update firmware code"
-    } else {
-        $CommitMessage = "Update keyboard layout and configuration"
-    }
-    
-    # Add timestamp for uniqueness
+    # Add timestamp to avoid duplicate commits
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
     $CommitMessage = "$CommitMessage [$timestamp]"
     
-    Write-Host "Auto-generated commit message: $CommitMessage"
-    Write-Host "Changed files: $fileCount"
+    Write-Host "AI-generated commit: $CommitMessage"
+    Write-Host "Changed files: $($allFiles.Count)"
 }
 
 # Verify GitHub CLI exists
@@ -229,39 +263,62 @@ $artifacts = & $GhExePath api "repos/opriflooperations/Keyball-44-Efficiency-Lay
 if ($artifacts -and $artifacts.artifacts) {
     $firmwareArtifact = $artifacts.artifacts | Where-Object { $_.name -like "*firmware*" } | Select-Object -First 1
     if ($firmwareArtifact) {
-        Write-Host "Found artifact: $($firmwareArtifact.name)"
-        # Download using curl.exe (not PowerShell alias) with binary mode to prevent corruption
+        Write-Host "Found artifact: $($firmwareArtifact.name) (ID: $($firmwareArtifact.id))"
         $zipPath = Join-Path $buildFolder "firmware.zip"
-        Write-Host "Downloading artifact to $zipPath..."
-        & curl.exe -L -o $zipPath $firmwareArtifact.archive_download_url
+        Write-Host "Downloading artifact to $zipPath using gh api..."
+        
+        # Use gh api to download with proper authentication
+        # The -H Accept header and -o output are critical for binary artifacts
+        & $GhExePath api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" `
+            "repos/opriflooperations/Keyball-44-Efficiency-Layout/actions/artifacts/$($firmwareArtifact.id)/zip" `
+            -o $zipPath 2>&1
         
         # Wait for download to complete
         $maxDownloadWait = 60
         $downloaded = 0
-        while ($downloaded -lt $maxDownloadWait -and (-not (Test-Path $zipPath) -or (Get-Item $zipPath).Length -eq 0)) {
+        while ($downloaded -lt $maxDownloadWait -and (-not (Test-Path $zipPath) -or (Get-Item $zipPath).Length -lt 1000)) {
             Start-Sleep -Seconds 1
             $downloaded++
         }
         
         if (Test-Path $zipPath) {
-            Write-Host "Download complete. Size: $((Get-Item $zipPath).Length) bytes"
+            $fileSize = (Get-Item $zipPath).Length
+            Write-Host "Download complete. Size: $fileSize bytes"
+            if ($fileSize -lt 1000) {
+                Write-Host "WARNING: File seems too small, checking contents..."
+                $content = Get-Content $zipPath -Raw -ErrorAction SilentlyContinue
+                if ($content -and $content.Length -lt 500) {
+                    Write-Host "Download appears to be text (likely error): $content"
+                }
+            }
         } else {
             Write-Host "ERROR: Download failed"
         }
+    } else {
+        Write-Host "ERROR: No firmware artifact found with correct name pattern"
     }
 } else {
-    Write-Host "No firmware artifact found, trying alternative download method..."
-    # Use gh API to list artifacts and download with curl.exe
+    Write-Host "No firmware artifact found with 'firmware' pattern, checking all artifacts..."
     $allArtifacts = & $GhExePath api "repos/opriflooperations/Keyball-44-Efficiency-Layout/actions/runs/$runDbId/artifacts" 2>&1 | ConvertFrom-Json
     if ($allArtifacts -and $allArtifacts.artifacts -and $allArtifacts.artifacts.Count -gt 0) {
+        Write-Host "Found $($allArtifacts.artifacts.Count) artifact(s):"
+        foreach ($art in $allArtifacts.artifacts) {
+            Write-Host "  - $($art.name) (ID: $($art.id))"
+        }
+        
+        # Get the first artifact (which should be the firmware zip)
         $firstArtifact = $allArtifacts.artifacts[0]
-        Write-Host "Downloading first artifact: $($firstArtifact.name)"
         $zipPath = Join-Path $buildFolder "firmware.zip"
-        & curl.exe -L -o $zipPath $firstArtifact.archive_download_url
+        Write-Host "Downloading first artifact: $($firstArtifact.name) using gh api..."
+        
+        # Use gh api to download with proper authentication
+        & $GhExePath api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" `
+            "repos/opriflooperations/Keyball-44-Efficiency-Layout/actions/artifacts/$($firstArtifact.id)/zip" `
+            -o $zipPath 2>&1
         
         $maxDownloadWait = 60
         $downloaded = 0
-        while ($downloaded -lt $maxDownloadWait -and (-not (Test-Path $zipPath) -or (Get-Item $zipPath).Length -eq 0)) {
+        while ($downloaded -lt $maxDownloadWait -and (-not (Test-Path $zipPath) -or (Get-Item $zipPath).Length -lt 1000)) {
             Start-Sleep -Seconds 1
             $downloaded++
         }
