@@ -230,7 +230,9 @@ git commit -m $CommitMessage
 
 # Push to remote (triggers GitHub Actions workflow)
 Write-Host "Pushing to remote..."
-git push origin Main
+$branch = git rev-parse --abbrev-ref HEAD 2>&1
+Write-Host "Current branch: $branch"
+git push origin $branch
 
 # ==========================================
 # WAIT FOR NEW WORKFLOW RUN
