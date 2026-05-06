@@ -99,66 +99,81 @@ git commit -m $CommitMessage
 Write-Host "Pushing to remote..."
 git push origin Main
 
-# Wait for GitHub Actions to start the workflow
-Write-Host "Waiting for GitHub Actions to start the workflow..."
-Start-Sleep -Seconds 5
-
 # ==========================================
-# ZERO-FAILURE WORKFLOW MONITORING
+# WAIT FOR NEW WORKFLOW RUN
 # ==========================================
 
-# Find the workflow run using direct databaseId approach
-$maxRetries = 12  # 12 retries * 5 seconds = 60 seconds max wait
+# Get the commit SHA that was just pushed
+$commitSha = git rev-parse HEAD 2>&1
+Write-Host "Current commit SHA: $commitSha"
+
+# Wait for GitHub Actions to start the NEW workflow (in_progress status)
+Write-Host "Waiting for GitHub Actions to start the NEW workflow run..."
+Start-Sleep -Seconds 8
+
+$maxRetries = 24  # 24 retries * 5 seconds = 120 seconds max wait
 $retryCount = 0
 $runDbId = $null
 
 while ($retryCount -lt $maxRetries -and $null -eq $runDbId) {
     $retryCount++
     
-    # RULE 1: Echo Rule - Print exact command before execution
-    $commandToRun = "& `"$GhExePath`" run list --workflow build.yml --limit 1 --json name,status,conclusion,databaseId"
-    Write-Host "Executing: $commandToRun"
+    # Get the latest workflow runs with status
+    Write-Host "Checking for workflow runs... (attempt $retryCount of $maxRetries)"
     
-    # RULE 2: Direct Output Check - Capture and print raw text BEFORE parsing
-    $rawOutput = & $GhExePath run list --workflow build.yml --limit 1 --json name,status,conclusion,databaseId 2>&1
+    $rawOutput = & $GhExePath run list --workflow build.yml --limit 3 --json name,status,conclusion,databaseId,headSha 2>&1
     
-    # Print raw output for transparency
-    Write-Host "Raw GH CLI output: $rawOutput"
-    
-    # Check if raw output is empty
     if ([string]::IsNullOrWhiteSpace($rawOutput)) {
-        Write-Host "WARNING: GH CLI returned empty output - authentication may be required"
-        Write-Host "Please run 'gh auth login' in your terminal if not already authenticated"
+        Write-Host "  GH CLI returned empty output - checking authentication..."
     } else {
-        # RULE 3: Stop Status Filter - Just get first item, check for databaseId existence
         $runs = $rawOutput | ConvertFrom-Json
         
         if ($runs -and $runs.Count -gt 0) {
-            $latestRun = $runs[0]
+            Write-Host "  Found $($runs.Count) recent run(s)"
             
-            # RULE 4: Use Database ID - Extract databaseId and watch immediately
-            if ($latestRun.databaseId) {
-                $runDbId = $latestRun.databaseId
-                Write-Host "Found workflow run: $($latestRun.name) (databaseId: $runDbId, Status: $($latestRun.status), Conclusion: $($latestRun.conclusion))"
-                Write-Host "Starting to watch the run..."
-                break
-            } else {
-                Write-Host "First run found but has no databaseId, waiting 5 seconds..."
+            # Look for a run that is in_progress AND matches our commit SHA
+            foreach ($run in $runs) {
+                Write-Host "    Run: databaseId=$($run.databaseId), status=$($run.status), conclusion=$($run.conclusion), headSha=$($run.headSha)"
+                
+                # PRIMARY: Look for in_progress run with matching commit (NEW run we just triggered)
+                if ($run.status -eq "in_progress" -and $run.headSha -eq $commitSha) {
+                    $runDbId = $run.databaseId
+                    Write-Host "  FOUND NEW RUN (in_progress) matching current commit SHA: $runDbId"
+                    break
+                }
+                
+                # SECONDARY: If no in_progress, check for queued run with matching commit
+                if ($run.status -eq "queued" -and $run.headSha -eq $run.headSha) {
+                    $runDbId = $run.databaseId
+                    Write-Host "  FOUND QUEUED RUN matching current commit SHA: $runDbId"
+                    break
+                }
+            }
+            
+            # FALLBACK: If we found ANY recent in_progress run (may be from same push)
+            if ($null -eq $runDbId) {
+                $inProgressRun = $runs | Where-Object { $_.status -eq "in_progress" } | Select-Object -First 1
+                if ($inProgressRun -and $inProgressRun.databaseId) {
+                    $runDbId = $inProgressRun.databaseId
+                    Write-Host "  Using in_progress run: $runDbId (may be from this push)"
+                }
             }
         }
     }
     
     if ($null -eq $runDbId) {
-        Write-Host "No run with databaseId found yet, waiting 5 seconds... (attempt $retryCount of $maxRetries)"
+        Write-Host "  Waiting for new workflow run... (attempt $retryCount of $maxRetries)"
         Start-Sleep -Seconds 5
     }
 }
 
 if ($null -eq $runDbId) {
-    Write-Host "ERROR: Could not find a workflow run with databaseId after 60 seconds"
-    Write-Host "Please check your GitHub Actions and run manually if needed"
+    Write-Host "ERROR: Could not find a new workflow run after 120 seconds"
+    Write-Host "Please check your GitHub Actions dashboard manually"
     exit 1
 }
+
+Write-Host "Found NEW workflow run to watch: databaseId=$runDbId"
 
 # Wait for the specific workflow run to complete
 Write-Host "Waiting for workflow run $runDbId to complete..."
@@ -215,18 +230,44 @@ if ($artifacts -and $artifacts.artifacts) {
     $firmwareArtifact = $artifacts.artifacts | Where-Object { $_.name -like "*firmware*" } | Select-Object -First 1
     if ($firmwareArtifact) {
         Write-Host "Found artifact: $($firmwareArtifact.name)"
-        # Download using curl with binary mode to prevent corruption
+        # Download using curl.exe (not PowerShell alias) with binary mode to prevent corruption
         $zipPath = Join-Path $buildFolder "firmware.zip"
         Write-Host "Downloading artifact to $zipPath..."
-        curl -L -o $zipPath $firmwareArtifact.archive_download_url
-        Write-Host "Download complete. Size: $((Get-Item $zipPath).Length) bytes"
-    } else {
-        Write-Host "No firmware artifact found, using default download..."
-        & $GhExePath run download $runDbId --dir $buildFolder
+        & curl.exe -L -o $zipPath $firmwareArtifact.archive_download_url
+        
+        # Wait for download to complete
+        $maxDownloadWait = 60
+        $downloaded = 0
+        while ($downloaded -lt $maxDownloadWait -and (-not (Test-Path $zipPath) -or (Get-Item $zipPath).Length -eq 0)) {
+            Start-Sleep -Seconds 1
+            $downloaded++
+        }
+        
+        if (Test-Path $zipPath) {
+            Write-Host "Download complete. Size: $((Get-Item $zipPath).Length) bytes"
+        } else {
+            Write-Host "ERROR: Download failed"
+        }
     }
 } else {
-    Write-Host "Could not get artifacts via API, using default download..."
-    & $GhExePath run download $runDbId --dir $buildFolder
+    Write-Host "No firmware artifact found, trying alternative download method..."
+    # Use gh API to list artifacts and download with curl.exe
+    $allArtifacts = & $GhExePath api "repos/opriflooperations/Keyball-44-Efficiency-Layout/actions/runs/$runDbId/artifacts" 2>&1 | ConvertFrom-Json
+    if ($allArtifacts -and $allArtifacts.artifacts -and $allArtifacts.artifacts.Count -gt 0) {
+        $firstArtifact = $allArtifacts.artifacts[0]
+        Write-Host "Downloading first artifact: $($firstArtifact.name)"
+        $zipPath = Join-Path $buildFolder "firmware.zip"
+        & curl.exe -L -o $zipPath $firstArtifact.archive_download_url
+        
+        $maxDownloadWait = 60
+        $downloaded = 0
+        while ($downloaded -lt $maxDownloadWait -and (-not (Test-Path $zipPath) -or (Get-Item $zipPath).Length -eq 0)) {
+            Start-Sleep -Seconds 1
+            $downloaded++
+        }
+    } else {
+        Write-Host "ERROR: No artifacts found for this run"
+    }
 }
 
 # Find and extract the ZIP file
