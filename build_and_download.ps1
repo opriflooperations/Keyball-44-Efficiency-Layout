@@ -187,8 +187,39 @@ if ($zipFile) {
     if ($uf2Files) {
         Write-Host "Found .uf2 files:"
         foreach ($uf2 in $uf2Files) {
-            Write-Host "  - $($uf2.Name)"
+            Write-Host "  - $($uf2.FullName)"
+            
+            # Calculate SHA256 checksum for verification
+            $sha256 = Get-FileHash -Path $uf2.FullName -Algorithm SHA256
+            Write-Host "    Size: $($uf2.Length) bytes, Attrs: $($uf2.Attributes)"
+            Write-Host "    SHA256: $($sha256.Hash)"
+            
+            # Remove any Zone.Identifier (NTFS alternate stream) that might block the file
+            $zoneIdPath = "$($uf2.FullName):Zone.Identifier"
+            if (Test-Path $zoneIdPath) {
+                Write-Host "    Removing Zone.Identifier..."
+                Remove-Item $zoneIdPath -Force -ErrorAction SilentlyContinue
+            }
+            
+            # Reset file attributes to normal
+            $uf2.Attributes = 'Normal'
+            Write-Host "    Reset file attributes to Normal"
+            
+            # Copy to clipboard for easy comparison
+            Write-Host "    SHA256 copied to clipboard for comparison with manual download."
+            Set-Clipboard -Value $sha256.Hash
         }
+        
+        # Debug: List all files in the build folder
+        Write-Host ""
+        Write-Host "=== Folder Contents ==="
+        Get-ChildItem -Path $buildFolder -Recurse | ForEach-Object {
+            Write-Host "  $($_.FullName) ($($_.Length) bytes, attrs: $($_.Attributes))"
+        }
+        
+        Write-Host ""
+        Write-Host "TIP: Compare the SHA256 hash above with a manually downloaded .uf2 file"
+        Write-Host "using: Get-FileHash -Path 'path\to\file.uf2' -Algorithm SHA256"
     }
     
     # Auto-Open: Run explorer.exe on the new version folder
@@ -198,6 +229,17 @@ if ($zipFile) {
 } else {
     Write-Host "WARNING: No ZIP artifact found in $buildFolder"
     Write-Host "Please check the GitHub Actions run manually."
+    
+    # Debug: List what IS in the folder
+    Write-Host ""
+    Write-Host "=== Actual Folder Contents ==="
+    if (Test-Path $buildFolder) {
+        Get-ChildItem -Path $buildFolder -Recurse | ForEach-Object {
+            Write-Host "  $($_.Name) ($($_.Length) bytes, attrs: $($_.Attributes))"
+        }
+    } else {
+        Write-Host "  (folder does not exist)"
+    }
     
     # Still open the folder in case there are other files
     Write-Host "Opening build folder in Explorer anyway..."
