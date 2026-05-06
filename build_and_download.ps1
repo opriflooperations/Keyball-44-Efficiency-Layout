@@ -165,7 +165,25 @@ New-Item -ItemType Directory -Path $buildFolder -Force | Out-Null
 
 # Download the firmware artifact for the specific run
 Write-Host "Downloading firmware artifact for run $runDbId..."
-& $GhExePath run download $runDbId --dir $buildFolder
+# Get the artifact download URL using gh API
+$artifacts = & $GhExePath api "repos/opriflooperations/Keyball-44-Efficiency-Layout/actions/runs/$runDbId/artifacts" 2>&1 | ConvertFrom-Json
+if ($artifacts -and $artifacts.artifacts) {
+    $firmwareArtifact = $artifacts.artifacts | Where-Object { $_.name -like "*firmware*" } | Select-Object -First 1
+    if ($firmwareArtifact) {
+        Write-Host "Found artifact: $($firmwareArtifact.name)"
+        # Download using curl with binary mode to prevent corruption
+        $zipPath = Join-Path $buildFolder "firmware.zip"
+        Write-Host "Downloading artifact to $zipPath..."
+        curl -L -o $zipPath $firmwareArtifact.archive_download_url
+        Write-Host "Download complete. Size: $((Get-Item $zipPath).Length) bytes"
+    } else {
+        Write-Host "No firmware artifact found, using default download..."
+        & $GhExePath run download $runDbId --dir $buildFolder
+    }
+} else {
+    Write-Host "Could not get artifacts via API, using default download..."
+    & $GhExePath run download $runDbId --dir $buildFolder
+}
 
 # Find and extract the ZIP file
 Write-Host "Looking for firmware artifact..."
@@ -176,13 +194,41 @@ if ($zipFile) {
     Write-Host "Size: $($zipFile.Length) bytes"
     
     # Extract the ZIP file using Shell.Application for better binary handling
-    Write-Host "Extracting firmware..."
+    Write-Host "Extracting firmware using Shell.Application..."
     try {
         $shell = New-Object -ComObject Shell.Application
         $zip = $shell.Namespace($zipFile.FullName)
         $destination = $shell.Namespace($buildFolder)
         $destination.CopyHere($zip.Items(), 0x14)  # 0x14 = NoAutoRename + NoConfirmSuppress
-        Write-Host "Extraction complete."
+        
+        # Wait for extraction to complete (Shell.Application is async)
+        Write-Host "Waiting for extraction to complete..."
+        $maxWait = 30
+        $waited = 0
+        $expectedFiles = @("keyball44_left-nice_nano_v2-zmk.uf2", "keyball44_right-nice_nano_v2-zmk.uf2")
+        $allFound = $false
+        
+        while ($waited -lt $maxWait -and -not $allFound) {
+            Start-Sleep -Seconds 1
+            $waited++
+            $allFound = $true
+            foreach ($expected in $expectedFiles) {
+                $found = Get-ChildItem -Path $buildFolder -Filter $expected -Recurse -ErrorAction SilentlyContinue
+                if (-not $found) {
+                    $allFound = $false
+                    break
+                }
+            }
+            if (-not $allFound) {
+                Write-Host "  Waiting... ($waited seconds)"
+            }
+        }
+        
+        if ($allFound) {
+            Write-Host "Extraction complete ($waited seconds)."
+        } else {
+            Write-Host "WARNING: Extraction may not be complete after $maxWait seconds."
+        }
     } catch {
         Write-Host "Shell extraction failed, trying Expand-Archive..."
         Expand-Archive -Path $zipFile.FullName -DestinationPath $buildFolder -Force
