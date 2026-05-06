@@ -232,7 +232,7 @@ git commit -m $CommitMessage
 Write-Host "Pushing to remote..."
 $branch = git rev-parse --abbrev-ref HEAD 2>&1
 Write-Host "Current branch: $branch"
-git push origin $branch
+git push -f origin $branch
 
 # ==========================================
 # WAIT FOR NEW WORKFLOW RUN
