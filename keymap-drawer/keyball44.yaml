@@ -412,3 +412,11 @@ combos:
   k: '&Double_Click_Macro'
 - p: [9, 8]
   k: Gui+L
+- p: [22, 34]
+  k: Ctl+V
+- p: [22, 23]
+  k: Ctl+C
+- p: [22, 21]
+  k: Ctl+A
+- p: [6, 7]
+  k: {t: CMK-DH+, h: toggle}
