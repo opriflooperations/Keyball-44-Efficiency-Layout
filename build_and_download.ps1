@@ -15,15 +15,59 @@ $GhExePath = "C:\Program Files\GitHub CLI\gh.exe"
 # Starting version for smart versioning
 $StartingVersion = 82
 
-# Show commit message popup if no message provided
+# Generate AI commit message from git diff
 if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
-    Add-Type -AssemblyName Microsoft.VisualBasic
-    $CommitMessage = [Microsoft.VisualBasic.Interaction]::InputBox("Enter your commit message:", "Commit Message", "Update firmware")
-}
-
-# If still no commit message, use default
-if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
-    $CommitMessage = "Update firmware"
+    Write-Host "Generating AI commit message..."
+    
+    # Get staged changes summary
+    $stagedFiles = git diff --staged --name-only 2>&1
+    $stagedStats = git diff --staged --stat 2>&1
+    
+    # Get unstaged changes
+    $unstagedFiles = git diff --name-only 2>&1
+    
+    # Analyze changes to generate commit message
+    $changeTypes = @()
+    $fileCount = 0
+    
+    if ($stagedFiles -and $stagedFiles -ne "") {
+        $files = $stagedFiles -split "`n" | Where-Object { $_ -ne "" }
+        $fileCount = $files.Count
+        
+        foreach ($file in $files) {
+            if ($file -match "keymap|\.keymap") {
+                $changeTypes += "keymap"
+            } elseif ($file -match "\.conf$") {
+                $changeTypes += "config"
+            } elseif ($file -match "\.yaml$|\.yml$") {
+                $changeTypes += "config"
+            } elseif ($file -match "\.c$|\.h$") {
+                $changeTypes += "code"
+            }
+        }
+    }
+    
+    # Generate commit message based on changes
+    $changeTypes = $changeTypes | Select-Object -Unique
+    
+    if ($changeTypes.Count -eq 0) {
+        $CommitMessage = "Update firmware configuration"
+    } elseif ($changeTypes -contains "keymap" -and $changeTypes.Count -eq 1) {
+        $CommitMessage = "Update keymap layout"
+    } elseif ($changeTypes -contains "config" -and $changeTypes.Count -eq 1) {
+        $CommitMessage = "Update keyboard configuration"
+    } elseif ($changeTypes -contains "code") {
+        $CommitMessage = "Update firmware code"
+    } else {
+        $CommitMessage = "Update keyboard layout and configuration"
+    }
+    
+    # Add timestamp for uniqueness
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
+    $CommitMessage = "$CommitMessage [$timestamp]"
+    
+    Write-Host "Auto-generated commit message: $CommitMessage"
+    Write-Host "Changed files: $fileCount"
 }
 
 # Verify GitHub CLI exists
