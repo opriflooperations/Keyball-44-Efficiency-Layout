@@ -173,10 +173,20 @@ $zipFile = Get-ChildItem -Path $buildFolder -Filter "*.zip" | Sort-Object LastWr
 
 if ($zipFile) {
     Write-Host "Found artifact: $($zipFile.Name)"
+    Write-Host "Size: $($zipFile.Length) bytes"
     
-    # Extract the ZIP file
+    # Extract the ZIP file using Shell.Application for better binary handling
     Write-Host "Extracting firmware..."
-    Expand-Archive -Path $zipFile.FullName -DestinationPath $buildFolder -Force
+    try {
+        $shell = New-Object -ComObject Shell.Application
+        $zip = $shell.Namespace($zipFile.FullName)
+        $destination = $shell.Namespace($buildFolder)
+        $destination.CopyHere($zip.Items(), 0x14)  # 0x14 = NoAutoRename + NoConfirmSuppress
+        Write-Host "Extraction complete."
+    } catch {
+        Write-Host "Shell extraction failed, trying Expand-Archive..."
+        Expand-Archive -Path $zipFile.FullName -DestinationPath $buildFolder -Force
+    }
     
     Write-Host ""
     Write-Host "=== Build Complete ==="
