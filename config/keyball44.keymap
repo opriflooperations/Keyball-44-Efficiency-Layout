@@ -294,6 +294,11 @@
             bindings = <&to 0>;
             key-positions = <6 7>;
         };
+
+        Doubble_Line_Break {
+            bindings = <&Doubble_Line_Break_Macro>;
+            key-positions = <30 31>;
+        };
     };
 
     behaviors {
@@ -393,6 +398,13 @@
             #binding-cells = <0>;
             bindings = <&mkp LCLK &mkp LCLK>;
             label = "DOUBLE_CLICK_MACRO";
+        };
+
+        Doubble_Line_Break_Macro: Doubble_Line_Break_Macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(ENTER) &kp LS(ENTER)>;
+            label = "DOUBBLE_LINE_BREAK_MACRO";
         };
     };
 
