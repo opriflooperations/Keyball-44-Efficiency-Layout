@@ -34,7 +34,7 @@
 
         Page_Refresh {
             timeout-ms = <50>;
-            key-positions = <21 33>; // E and I keys
+            key-positions = <32 20>; // E and I keys
             bindings = <&kp LC(R)>;
         };
 
@@ -46,7 +46,7 @@
 
         Page_Forward {
             timeout-ms = <50>;
-            key-positions = <20 32>; // N, E, and I keys
+            key-positions = <33 21>; // N, E, and I keys
             bindings = <&kp LA(RIGHT)>;
         };
 
