@@ -316,11 +316,11 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
 combos:
-- p: [21, 33]
+- p: [32, 20]
   k: Ctl+R
 - p: [19, 31]
   k: Alt+$$mdi:arrow-left-bold$$
-- p: [20, 32]
+- p: [33, 21]
   k: Alt+$$mdi:arrow-right-bold$$
 - p: [4, 7]
   k: {t: NUM, h: toggle}
