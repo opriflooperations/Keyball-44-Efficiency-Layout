@@ -405,7 +405,7 @@
         Here_Is_What_Cline_Did_Macro: Here_Is_What_Cline_Did_Macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(H) &kp E &kp R &kp E &kp SPACE &kp I &kp S &kp SPACE &kp W &kp H &kp A &kp T &kp SPACE &kp C &kp L &kp I &kp N &kp E &kp SPACE &kp S &kp A &kp I &kp D &kp SPACE &kp A &kp N &kp D &kp SPACE &kp D &kp I &kp D &kp COLON>;
+            bindings = <&kp LS(H) &kp E &kp R &kp E &kp SPACE &kp I &kp S &kp SPACE &kp W &kp H &kp A &kp T &kp SPACE &kp C &kp L &kp I &kp N &kp E &kp SPACE &kp S &kp A &kp I &kp D &kp SPACE &kp A &kp N &kp D &kp SPACE &kp D &kp I &kp D &kp COLON &kp LS(ENTER) &kp LS(ENTER)>;
             label = "HERE_IS_WHAT_CLINE_DID_MACRO";
         };
     };
