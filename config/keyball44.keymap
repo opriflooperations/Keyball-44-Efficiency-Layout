@@ -446,10 +446,10 @@
         function_layer {
             label = "FUN";
             bindings = <
-&ext_power EP_ON  &kp F1  &kp F2   &kp F3    &kp F4       &trans                     &trans   &kp C_BRIGHTNESS_INC      &kp C_VOLUME_UP  &ext_power EP_ON   &trans      &trans
-&trans            &kp F5  &kp F6   &kp F7    &kp F8       &trans                     &trans   &kp C_BRIGHTNESS_DEC      &kp C_VOL_DN     &ext_power EP_OFF  &kp K_LOCK  &trans
-&trans            &kp F9  &kp F10  &kp F11   &kp F12      &trans                     &trans   &kp C_BRIGHTNESS_MINIMUM  &kp K_MUTE       &ext_power EP_TOG  &trans      &trans
-&trans            &trans  &trans   &kp HOME  &kt PAGE_UP              &kp PAGE_DOWN  &kp END                                                                            &trans
+&trans  &kp F1  &kp F2   &kp F3    &kp F4       &trans                     &trans   &kp C_BRIGHTNESS_INC      &kp C_VOLUME_UP  &ext_power EP_ON   &trans      &trans
+&trans  &kp F5  &kp F6   &kp F7    &kp F8       &trans                     &trans   &kp C_BRIGHTNESS_DEC      &kp C_VOL_DN     &ext_power EP_OFF  &kp K_LOCK  &trans
+&trans  &kp F9  &kp F10  &kp F11   &kp F12      &trans                     &trans   &kp C_BRIGHTNESS_MINIMUM  &kp K_MUTE       &ext_power EP_TOG  &trans      &trans
+&trans  &trans  &trans   &kp HOME  &kt PAGE_UP              &kp PAGE_DOWN  &kp END                                                                            &trans
             >;
         };
 
